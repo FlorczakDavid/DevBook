@@ -63,7 +63,6 @@ In your local, create a file named "environment.development.ts" in src/environme
 In this file, you can configure the variables like below.
 ```
 export const environment = {
-  production: true,
-  apiUrl: 'http://my-prod-url'
+  apiUrl: 'http://localhost:8080/'
 };
 ```

@@ -4,6 +4,7 @@
 /src/environments/*
 
 !src/environments/
+!src/environments/.gitkeep
 
 # Compiled output
 /dist
