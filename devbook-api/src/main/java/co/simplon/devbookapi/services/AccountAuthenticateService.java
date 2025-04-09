@@ -11,7 +11,7 @@ public class AccountAuthenticateService {
 	//TODO : private final AccountJPARepository accounts;
 	//TODO : private final RoleJPARepository roles;
 	
-	private final PasswordEncoder encoder;
+//	private final PasswordEncoder encoder;
 
 	
 }
