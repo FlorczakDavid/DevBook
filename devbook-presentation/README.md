@@ -65,4 +65,46 @@ In this file, you can configure the variables like below.
 export const environment = {
   apiUrl: 'http://localhost:8080/'
 };
+
+```
+
+### Project Structure (initial)
+
+```sh
+src/
+│
+├── app/
+│   ├── core/              # Services globaux (auth, interceptor, API, etc.)
+│   │   ├── services/     
+│   │   ├── guards/        # Route guards
+│   │   └── interceptors/  # Intercepteurs HTTP
+│   │
+│   ├── shared/            # Composants & pipes réutilisables
+│   │   ├── directives/    # Directives personnalisées
+│   │   ├── pipes/         # Pipes personnalisés
+│   │   └── pipes/
+│   │       └── truncate.pipe.ts
+│   │
+│   ├── features/          # Vos modules métier (domaines fonctionnels)
+│   │   ├── providers-rss/
+│   │   │   ├── providers-rss.component.ts
+│   │   │   ├── providers-rss.service.ts
+│   │   │   └── providers-rss.css
+│   │   ├── items/
+│   │   │   ├── items.component.ts
+│   │   │   ├── items.service.ts
+│   │   │   └── items.css
+│   │   └── ...
+│   │
+│   ├── app-routing.module.ts
+│   └── app.module.ts
+│
+├── assets/
+│   └── imgs/              # Fichiers de traduction si besoin
+│
+├── environments/
+│   ├── environment.ts
+│   └── environment.prod.ts
+│
+└── styles.scss            # Styles globaux
 ```
