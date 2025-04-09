@@ -20,7 +20,7 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public ArticleView getGraph(ArticleCreate input) throws IOException {
+    public ArticleView postArticle(ArticleCreate input) throws IOException {
         try{
             Article article = createArticle(input);
             return new ArticleView(
@@ -37,7 +37,7 @@ public class ArticleService {
     }
 
     private Article createArticle(ArticleCreate input) throws IOException {
-        Document doc = Jsoup.connect(input.url()).get();
+        Document doc = Jsoup.connect(input.url()).get(); //https://www.mediapart.fr/
         Elements title = doc.select("meta[property='og:title']");
         String contentTitle = title.attr("content");
         Elements type = doc.select("meta[property='og:type']");
