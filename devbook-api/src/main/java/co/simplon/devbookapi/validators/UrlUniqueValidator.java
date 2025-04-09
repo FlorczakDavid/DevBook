@@ -1,11 +1,10 @@
 package co.simplon.devbookapi.validators;
 
-import co.simplon.devbookapi.dtos.ArticleCreate;
 import co.simplon.devbookapi.repositories.ArticleRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class UrlUniqueValidator implements ConstraintValidator<UrlUnique, ArticleCreate> {
+public class UrlUniqueValidator implements ConstraintValidator<UrlUnique, String> {
 
     private final ArticleRepository articleRepository;
 
@@ -14,8 +13,7 @@ public class UrlUniqueValidator implements ConstraintValidator<UrlUnique, Articl
     }
 
     @Override
-    public boolean isValid(ArticleCreate input, ConstraintValidatorContext context) {
-        String url = input.url();
+    public boolean isValid(String url, ConstraintValidatorContext context) {
         return !articleRepository.existsByUrl(url);
     }
 }
