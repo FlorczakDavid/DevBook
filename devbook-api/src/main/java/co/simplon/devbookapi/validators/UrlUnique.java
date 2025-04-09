@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = UrlUniqueValidator.class)
 public @interface UrlUnique {
 
-    String message() default "";
+    String message() default "This article already exists";
 
     Class<?>[] groups() default {};
 

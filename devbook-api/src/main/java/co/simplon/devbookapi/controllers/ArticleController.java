@@ -22,7 +22,8 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ArticleView getArticle(@Valid @RequestBody ArticleCreate input) throws IOException {
-        return articleService.getGraph(input);
+    public ArticleView postArticle(@Valid @RequestBody ArticleCreate input) throws IOException {
+        return articleService.postArticle(input);
     }
+
 }
