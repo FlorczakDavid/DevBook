@@ -1,6 +1,10 @@
 package co.simplon.devbookapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_articles")
@@ -23,8 +27,19 @@ public class Article {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "author")
-    private String author;
+    @Column(name = "authors")
+    private String authors;
+
+    @Column(name = "published_date")
+    private ZonedDateTime publishedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private RssProvider provider;
+
+    @ElementCollection
+    private Set<String> categories;
+
 
     public Long getId() {
         return id;
@@ -66,11 +81,35 @@ public class Article {
         this.description = description;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(String author) {
+        this.authors = author;
+    }
+
+    public ZonedDateTime getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(ZonedDateTime publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public Set<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<String> categories) {
+        this.categories = categories;
+    }
+
+    public RssProvider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(RssProvider provider) {
+        this.provider = provider;
     }
 }
