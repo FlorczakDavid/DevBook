@@ -95,7 +95,7 @@ src/
 │   │   │   ├── items.service.ts
 │   │   │   └── items.css
 │   │   └── ...
-│   │
+│   ├── layouts/            # Layouts de l’application (Header, Footer, Sidebar)
 │   ├── app-routing.module.ts
 │   └── app.module.ts
 │
