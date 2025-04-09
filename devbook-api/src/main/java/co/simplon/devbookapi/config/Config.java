@@ -90,7 +90,7 @@ public class Config {
 //						.requestMatchers(HttpMethod.GET, "/accounts/with-role")
 //						.hasRole("MANAGER"))
 				.authorizeHttpRequests((req) -> req
-						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/login").anonymous())
+						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate").anonymous())
 				.authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
 				.oauth2ResourceServer((srv) -> srv.jwt(Customizer.withDefaults()))
 				.build();
