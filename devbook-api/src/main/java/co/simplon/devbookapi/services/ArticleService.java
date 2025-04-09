@@ -28,7 +28,7 @@ public class ArticleService {
                     article.getTitle(),
                     article.getImagePath(),
                     article.getDescription(),
-                    article.getAuthor()
+                    article.getAuthors()
             );
         }catch(IOException e){
             System.out.println("Cannot access to the article");
@@ -56,7 +56,7 @@ public class ArticleService {
         article.setTitle(contentTitle);
         article.setImagePath(contentImage);
         article.setDescription(contentDescription);
-        article.setAuthor(contentAuthor);
+        article.setAuthors(contentAuthor);
         return articleRepository.save(article);
     }
 }
