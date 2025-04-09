@@ -23,6 +23,9 @@ public class Account {
 
     @Column(name = "password")
     private String password;
+    
+    @Column(name = "statusemail")
+    private boolean statusEmail;
 
 
     public Account() {
@@ -45,8 +48,16 @@ public class Account {
     }
 
 
-    @Override
+    public boolean isStatusEmail() {
+		return statusEmail;
+	}
+
+	public void setStatusEmail(boolean statusEmail) {
+		this.statusEmail = statusEmail;
+	}
+
+	@Override
     public String toString() {
-        return "{username=" + username + ", password= [PROTECTED]";
+        return "{username=" + username + ", password= [PROTECTED], statusEmail=" + statusEmail;
     }
 }

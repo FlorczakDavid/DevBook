@@ -4,14 +4,19 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import co.simplon.devbookapi.dtos.AuthInfo;
+import co.simplon.devbookapi.dtos.Authentication;
+import co.simplon.devbookapi.services.AccountAuthenticateService;
+
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
-//    public final AccountService service;
-//
-//    public AccountController(AccountService service) {
-//        this.service = service;
-//    }
+
+	  public final AccountAuthenticateService authService;
+
+    public AccountController(AccountAuthenticateService authService) {
+        this.authService = authService;
+    }
 //
 //    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
@@ -19,11 +24,11 @@ public class AccountController {
 //        service.create(inputs);
 //    }
 //
-//    @PostMapping("/authenticate")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    Object authentificate(@RequestBody AccountAuthentificate inputs) {
-//        return service.authentificate(inputs);
-//    }
+    @PostMapping("/authenticate")
+    @ResponseStatus(HttpStatus.CREATED)
+    AuthInfo authentificate(@RequestBody Authentication inputs) {
+        return authService.authenticate(inputs);
+    }
 //
 //    @GetMapping
 //    @ResponseStatus(HttpStatus.OK)
