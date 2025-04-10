@@ -37,10 +37,10 @@ public class EmailService {
 	                <h2>Votre PIN pour vous connecter</h2>
 	                <p>%s</p>
 	                <p>Lien pour vous connecter : </p>
-	                <p>%s/%s</p>
+	                <p><a href="%s/%s">%s/%s</a></p>
 	            </body>
 	            </html>
-	            """.formatted(pin, this.urlPinInput, token);
+	            """.formatted(pin, this.urlPinInput, token, this.urlPinInput, token);
 
 	    helper.setText(htmlContent, true); 
 	    sender.send(message);

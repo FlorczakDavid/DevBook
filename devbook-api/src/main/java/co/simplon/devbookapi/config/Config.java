@@ -84,14 +84,8 @@ public class Config {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	
     	return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
-//				.authorizeHttpRequests((req) -> req
-//						.requestMatchers(HttpMethod.GET, "/accounts/with-role")
-//						.hasRole("MEMBER"))
 				.authorizeHttpRequests((req) -> req
-						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate").anonymous())
-//				.authorizeHttpRequests((req) -> req
-//						.requestMatchers(HttpMethod.GET, "/accounts/get-account").anonymous())
-				// Always last rule:
+						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**").anonymous())
 				.authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
 				.oauth2ResourceServer((srv) -> srv.jwt(Customizer.withDefaults()))
 				.build();

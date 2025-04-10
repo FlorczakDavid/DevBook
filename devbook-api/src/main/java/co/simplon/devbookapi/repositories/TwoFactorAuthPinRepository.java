@@ -8,4 +8,6 @@ import co.simplon.devbookapi.entities.TwoFactorAuthPin;
 @Repository
 public interface TwoFactorAuthPinRepository extends JpaRepository<TwoFactorAuthPin, Long>{
 
+	TwoFactorAuthPin findAllByUuidToken(String token);
+
 }
