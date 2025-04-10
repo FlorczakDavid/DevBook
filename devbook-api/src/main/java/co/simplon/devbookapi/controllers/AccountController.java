@@ -35,7 +35,8 @@ public class AccountController {
     }
     
     @PostMapping("/authenticate")
-    AuthInfo authentificate(@RequestBody Authentication inputs) {
-        return authService.authenticate(inputs);
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    void authentificate(@RequestBody Authentication inputs) {
+        authService.authenticate(inputs);
     }
 }
