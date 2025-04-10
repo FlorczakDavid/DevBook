@@ -35,7 +35,14 @@ public class AccountController {
     }
     
     @PostMapping("/authenticate")
-    AuthInfo authentificate(@RequestBody Authentication inputs) {
-        return authService.authenticate(inputs);
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    void authentificate(@RequestBody Authentication inputs) {
+        authService.authenticate(inputs);
+    }
+    
+    @PostMapping("/doubleAuth/{token}")
+    @ResponseStatus(HttpStatus.CREATED)
+    AuthInfo verifyPin(@PathVariable("token") String token, @RequestBody String pin) {
+    	return authService.verifyPin(pin, token);
     }
 }

@@ -26,7 +26,15 @@ public class Account {
     @JoinColumn(name = "id_role")
     private Role role;
 
-    public String getUsername() {
+    public Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
         return username;
     }
 
