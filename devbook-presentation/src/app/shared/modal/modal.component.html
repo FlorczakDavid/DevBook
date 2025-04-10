@@ -1,0 +1,7 @@
+<div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <h2>Put the URL of article you want to share</h2>
+        <input type="text">
+        <button (click)="closeModal()">Close</button>
+    </div>
+</div>

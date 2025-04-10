@@ -1,0 +1,27 @@
+/* .share-article-button{
+    border: 1px solid black;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    display: flex;
+    padding: 0;
+}
+.share-article-button:hover{
+    cursor: pointer;
+    background-color: red;
+    border: 1px solid red;
+}
+.add{
+    margin: auto;
+    font-size: 22px;
+    font-weight: 900;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 0;
+}
+#modal{
+    display: none;
+    width: 80%;
+    height: 100px;
+} */
