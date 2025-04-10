@@ -83,9 +83,15 @@ public class Config {
     @Bean 
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	
-		return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
+    	return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
 				.authorizeHttpRequests((req) -> req
-						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/authenticate").anonymous())
+						.requestMatchers(HttpMethod.GET, "/accounts/with-role")
+						.hasRole("MANAGER"))
+				.authorizeHttpRequests((req) -> req
+						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate").anonymous())
+//				.authorizeHttpRequests((req) -> req
+//						.requestMatchers(HttpMethod.GET, "/accounts/get-account").anonymous())
+				// Always last rule:
 				.authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
 				.oauth2ResourceServer((srv) -> srv.jwt(Customizer.withDefaults()))
 				.build();
