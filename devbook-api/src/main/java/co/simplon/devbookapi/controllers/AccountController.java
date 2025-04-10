@@ -1,38 +1,31 @@
 package co.simplon.devbookapi.controllers;
 
+import co.simplon.devbookapi.dtos.AccountCreate;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import co.simplon.devbookapi.dtos.AuthInfo;
-import co.simplon.devbookapi.dtos.Authentication;
-import co.simplon.devbookapi.services.AccountAuthenticateService;
+import co.simplon.devbookapi.services.AccountService;
 
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
+    public final AccountService service;
 
-	  public final AccountAuthenticateService authService;
-
-    public AccountController(AccountAuthenticateService authService) {
-        this.authService = authService;
+    public AccountController(AccountService service) {
+        this.service = service;
     }
-//
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    void create(@RequestBody @Valid AccountCreate inputs) {
-//        service.create(inputs);
-//    }
-//
-    @PostMapping("/authenticate")
+
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    AuthInfo authentificate(@RequestBody Authentication inputs) {
-        return authService.authenticate(inputs);
+    void create(@RequestBody @Valid AccountCreate inputs) {
+        service.create(inputs);
     }
-//
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    String getAccount() {
-//        return service.getAccount();
-//    }
+
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    String getAccount() {
+        return service.getAccount();
+    }
 }
