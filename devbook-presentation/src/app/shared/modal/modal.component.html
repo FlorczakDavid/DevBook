@@ -1,16 +1,29 @@
 <div class="center">
     <div class="modal-overlay" (click)="closeModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
-            <h2>Put the URL of the article you want to share</h2>
-            <input type="text" [(ngModel)]="url" name="url" #url="ngModel">
-            <button (click)="send()">Send</button>
+           
+
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                
+            <h4>Put the URL of the article you want to share</h4>
+
+            <label for="url">Url :</label>
+            <input type="text" id="url" formControlName="url"/> 
+            <!-- <input type="text" id="url" name="url" [(ngModel)]="url" #url="ngModel"> -->
+
+            <small
+                class="text-danger"
+                *ngIf="isInvalidAndTouchedOrDirty(formGroup.controls['url'])"
+                >
+                    <span *ngIf="formGroup.controls['url'].errors?.['required']"
+                    >Url is required.</span>
+            </small>
+
+            <button type="submit" [disabled]="formGroup.invalid">Submit</button>
+
+        </form> 
+            
             <button (click)="closeModal()">X</button>
-            <div *ngIf="url.invalid && (url.dirty || url.touched)" class="alert">
-               Url must be valid
-            </div>
-            <div *ngIf="url.invalid && (url.dirty || url.touched)" class="alert">
-                Url must be valid
-             </div>
         </div>
     </div>
 </div>

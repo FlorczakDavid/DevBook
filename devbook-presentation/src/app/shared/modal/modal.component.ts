@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
 import axios from 'axios'
 import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,16 +7,32 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-modal',
-  imports : [FormsModule, CommonModule],
+  imports : [CommonModule, ReactiveFormsModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css'
 })
 
 export class ModalComponent {
   @Output() close = new EventEmitter<void>();
+  @Output() shareArticle = new EventEmitter<void>();
+  @Input() formGroup: FormGroup = new FormGroup({
+    url: new FormControl('')
+  });
 
   closeModal(): void{
     this.close.emit();
+  }
+
+  onSubmit(){
+
+    console.log("toto")
+    if(this.formGroup.valid){
+      console.log("tata")
+      this.shareArticle.emit();
+    }
+  }
+  isInvalidAndTouchedOrDirty(control: any): boolean {
+    return control.invalid && (control.dirty || control.touched);
   }
 
   url: string='';
@@ -36,7 +52,7 @@ export class ModalComponent {
     this.url;
     console.log("url" + this.url);
     
-    this.createValidatorUrl()
+    //this.createValidatorUrl()
 
     try{
       const response = await axios.post('http://localhost:8080/article',
