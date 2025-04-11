@@ -13,7 +13,7 @@ export class FormComponent {
     username: new FormControl(''),
     password: new FormControl(''),
   });
-  @Output() formSubmit = new EventEmitter<void>();
+  @Output() formSubmit = new EventEmitter<any>();
 
   submitForm() {
     if (this.formGroup.valid) {
