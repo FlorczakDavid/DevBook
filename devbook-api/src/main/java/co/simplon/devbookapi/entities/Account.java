@@ -1,13 +1,8 @@
 package co.simplon.devbookapi.entities;
 
-import java.util.Set;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "t_accounts")
@@ -24,11 +19,22 @@ public class Account {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "statusemail")
+    private boolean statusEmail;
 
-    public Account() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    private Role role;
 
-    public String getUsername() {
+    public Long getId() {
+		return id;
+	}
+
+	protected void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
         return username;
     }
 
@@ -44,9 +50,24 @@ public class Account {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isStatusEmail() {
+        return statusEmail;
+    }
+
+    public void setStatusEmail(boolean statusEmail) {
+        this.statusEmail = statusEmail;
+    }
 
     @Override
     public String toString() {
-        return "{username=" + username + ", password= [PROTECTED]";
+        return "{username=" + username + ", password= [PROTECTED], statusEmail=" + statusEmail + "}";
     }
 }
