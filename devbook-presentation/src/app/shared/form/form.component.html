@@ -1,0 +1,29 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" />
+    <small
+      class="text-danger"
+      *ngIf="isInvalidAndTouchedOrDirty(formGroup.controls['email'])"
+    >
+      <span *ngIf="formGroup.controls['email'].errors?.['required']"
+        >Email is required.</span
+      >
+    </small>
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password" />
+    <small
+      class="text-danger"
+      *ngIf="isInvalidAndTouchedOrDirty(formGroup.controls['password'])"
+    >
+      <span *ngIf="formGroup.controls['password'].errors?.['required']"
+        >Password is required.</span
+      >
+    </small>
+  </div>
+
+  <button type="submit" [disabled]="formGroup.invalid">Submit</button>
+</form>
