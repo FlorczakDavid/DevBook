@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
-import {SignInComponent} from './features/sign-in/sign-in.component'
+import { NotFoundComponent } from './layouts/not-found/not-found.component';
 
 export const routes: Routes = [
-    { path: 'sign-in', component: SignInComponent }
+  {
+    path: 'profile',
+    loadComponent: () => import('./layouts/profile/profile.component')
+      .then(mod => mod.ProfileComponent)
+  },
+  { path: '**', component: NotFoundComponent }
 ];

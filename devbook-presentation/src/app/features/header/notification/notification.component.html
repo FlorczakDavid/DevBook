@@ -2,7 +2,7 @@
   <span class="material-symbols-outlined">
     notifications
   </span>
-  <span class="notification-badge">
+  <span *ngIf="notifications.length > 0" class="notification-badge">
     {{ notifications.length }}
   </span>
 </div>

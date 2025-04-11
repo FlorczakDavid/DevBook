@@ -1,1 +1,4 @@
-<app-notification></app-notification>
+<app-notification *ngIf="showNotification"></app-notification>
+<a routerLink="/profile">
+  <app-profile-link></app-profile-link>
+</a>
