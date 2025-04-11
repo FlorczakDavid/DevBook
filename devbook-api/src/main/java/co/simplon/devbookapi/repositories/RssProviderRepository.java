@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface RssProviderRepository extends JpaRepository<RssProvider, Long> {
     Optional<RssProvider> findByLink(String link);
+    boolean existsByUrl(String url);
 }

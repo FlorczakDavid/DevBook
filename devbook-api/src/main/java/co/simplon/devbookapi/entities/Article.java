@@ -1,8 +1,6 @@
 package co.simplon.devbookapi.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import java.time.ZonedDateTime;
 import java.util.Set;
 
@@ -111,5 +109,10 @@ public class Article {
 
     public void setProvider(RssProvider provider) {
         this.provider = provider;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Article {title ='%s', publishedDate='%s', authors ='%s'}, categories=[LAZY_LOADED]", title, publishedDate, authors);
     }
 }
