@@ -9,9 +9,6 @@
       <span *ngIf="formGroup.controls['email'].errors?.['required']"
         >Email is required.</span
       >
-      <span *ngIf="formGroup.controls['email'].errors?.['email']"
-        >Invalid email address.</span
-      >
     </small>
   </div>
 
@@ -24,9 +21,6 @@
     >
       <span *ngIf="formGroup.controls['password'].errors?.['required']"
         >Password is required.</span
-      >
-      <span *ngIf="formGroup.controls['password'].errors?.['minlength']"
-        >Password must be at least 6 characters long.</span
       >
     </small>
   </div>
