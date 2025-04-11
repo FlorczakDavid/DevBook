@@ -1,12 +1,11 @@
 package co.simplon.devbookapi.controllers;
 
+import co.simplon.devbookapi.dtos.RssUrlCreate;
 import co.simplon.devbookapi.entities.RssProvider;
 import co.simplon.devbookapi.services.RssService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -20,8 +19,8 @@ public class RssController {
      }
 
      @PostMapping("/import")
-     public ResponseEntity<RssProvider> importFeed(@RequestParam String url) throws IOException {
-         RssProvider provider = rssService.fetchAndStoreFrom(url);
+     public ResponseEntity<RssProvider> importFeed(@Valid @RequestBody RssUrlCreate input) throws IOException {
+         RssProvider provider = rssService.fetchAndStoreFrom(input);
          return ResponseEntity.ok(provider);
      }
 }
