@@ -1,0 +1,12 @@
+<h1>Profile</h1>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <input type="checkbox" id="article" [(ngModel)]="model.article" name="article">
+    <label for="newsletter">Subscribe to new articles</label>
+  </div>
+  <div>
+    <input type="checkbox" id="rss" [(ngModel)]="model.rss" name="rss">
+    <label for="newsletter">Subscribe to RSS feed</label>
+  </div>
+  <button type="submit">Save</button>
+</form>
