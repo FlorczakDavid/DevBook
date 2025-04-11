@@ -34,6 +34,7 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
         CustomErrors customErrors = new CustomErrors();
         List<FieldError> fieldErrors = exception.getFieldErrors();
         fieldErrors.forEach(error -> customErrors.addFieldError(error.getField(), error.getDefaultMessage()));
+        System.out.println("fieldErrors" + fieldErrors);
         List<ObjectError> globalErrors = exception.getGlobalErrors();
         globalErrors.forEach(error -> customErrors.addGlobalError(error.getCode()));
         return handleExceptionInternal(exception, customErrors, headers, status, request);

@@ -1,16 +1,16 @@
-/* .modal-overlay{
-    position: fixed;
+.center{
+    display: flex;
+}
+.modal-overlay{
     margin: auto;
-    width: 80%;
-    height: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .modal-content{
-    background-color: #fff;
+    background-color: #ffcfcf;
     padding: 30px;
     border-radius: 10px;
     text-align: center;
     width: 100%;
-} */
+}

@@ -1,7 +1,20 @@
-<div class="modal-overlay" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <h2>Put the URL of article you want to share</h2>
-        <input type="text">
-        <button (click)="closeModal()">Close</button>
+<div class="center">
+    <div class="modal-overlay" (click)="closeModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <h2>Put the URL of the article you want to share</h2>
+            <input type="text" [(ngModel)]="url" name="url" #url="ngModel">
+            <button (click)="send()">Send</button>
+            <button (click)="closeModal()">X</button>
+            <div *ngIf="url.invalid && (url.dirty || url.touched)" class="alert">
+               Url must be valid
+            </div>
+            <div *ngIf="url.invalid && (url.dirty || url.touched)" class="alert">
+                Url must be valid
+             </div>
+        </div>
     </div>
+</div>
+
+<div>
+    
 </div>
