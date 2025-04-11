@@ -10,12 +10,12 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 })
 export class FormComponent {
   @Input() formGroup: FormGroup = new FormGroup({
-    email: new FormControl(''),
+    username: new FormControl(''),
     password: new FormControl(''),
   });
   @Output() formSubmit = new EventEmitter<void>();
 
-  onSubmit() {
+  submitForm() {
     if (this.formGroup.valid) {
       console.log(this.formGroup.value);
       this.formSubmit.emit();
