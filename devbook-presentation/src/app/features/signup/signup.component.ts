@@ -45,10 +45,10 @@ export class SignupComponent {
       console.log(FormData);
       this.http.post('http://localhost:8080/accounts', FormData).subscribe({
         next: (response) => {
-          console.log('La demande est encoyé', response);
+          console.log('Form Submitted!', response);
         },
         error: (error) => {
-          console.error('Erreur d envoie', error);
+          console.error('Send Error', error);
         },
       });
     }
