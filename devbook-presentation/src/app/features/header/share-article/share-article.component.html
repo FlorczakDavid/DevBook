@@ -5,4 +5,20 @@
         <input type="text" id="url" formControlName="url">
         <button type="submit" [disabled]="!urlForm.valid">V</button>
     </form>
+
+    <form [formGroup]="formGroup" (ngSubmit)="send()">
+        <label for="url">url:</label>
+        <input id="url" formControlName="url" />
+    
+        <div *ngIf="isInvalid('url')">
+          <span *ngIf="formGroup.get('url')?.errors?.['required']">
+            L'URL est obligatoire.
+          </span>
+          <span *ngIf="formGroup.get('url')?.errors?.['pattern']">
+            Format d'URL invalide.
+          </span>
+        </div>
+    
+        <button type="submit">Envoyer</button>
+    </form>
 </div>
