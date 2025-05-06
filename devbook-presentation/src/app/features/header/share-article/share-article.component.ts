@@ -17,4 +17,23 @@ export class ShareArticleComponent {
     
   }
 
+  formGroup = new FormGroup({
+    url: new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,63}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/
+      ),
+    ]),
+  });
+
+  onSubmit() {
+    if (this.formGroup.valid) {
+      console.log(this.formGroup.value);
+    }
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.formGroup.get(controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
 }

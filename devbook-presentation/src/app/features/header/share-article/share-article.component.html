@@ -1,10 +1,10 @@
 <div>
     <h5>Insert URL : </h5>
-    <form [formGroup]="urlForm" (ngSubmit)="onSubmit()">
+    <!-- <form [formGroup]="urlForm" (ngSubmit)="onSubmit()">
         <label for="url"></label>
         <input type="text" id="url" formControlName="url">
         <button type="submit" [disabled]="!urlForm.valid">V</button>
-    </form>
+    </form> -->
 
     <form [formGroup]="formGroup" (ngSubmit)="send()">
         <label for="url">url:</label>
