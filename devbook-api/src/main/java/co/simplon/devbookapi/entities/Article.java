@@ -23,8 +23,8 @@ public class Article {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "author")
-    private String author;
+    @Column(name = "authors")
+    private String authors;
 
     public Long getId() {
         return id;
@@ -66,11 +66,11 @@ public class Article {
         this.description = description;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(String authors) {
+        this.authors = authors;
     }
 }
