@@ -29,25 +29,22 @@ export class ShareArticleComponent {
 
   async onSubmit() {
     if (this.formGroup.valid) {
-      console.log(this.formGroup.value);
+      console.log(this.formGroup.value.url);
       try {
         const response = await fetch('http://localhost:8080/article', {
           method: "POST",
           headers : {"Content-type": "application/json"},
-          body: JSON.stringify({url: "url"})
-          
+          body: JSON.stringify({url: this.formGroup.value.url})
         })
-      } catch(err:any) {
-        if(err.status.code >= 400 || err.status.code <= 500){
-          console.log('error', err)
+        if(response.ok){
+          alert('url correctly sent')
+        } else if(response.status >= 400 && response.status  <= 500){
           alert('client error')
-        } else if(err.status.code <= 500 || err.status.code <= 600) {
-            console.log('err', err)
+        } else if(response.status >= 500 && response.status <= 600) {
             alert('server error')
-        } else {
-          console.log('err', err)
-          alert('an enexpected error has occured')
         }
+      } catch(err:any) {
+        alert('an enexpected error has occured')
       } 
     }
   }
