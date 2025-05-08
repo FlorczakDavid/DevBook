@@ -9,14 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './share-article.component.css'
 })
 export class ShareArticleComponent {
-  // urlForm = new FormGroup({
-  //   url: new FormControl('', [
-  //     forbiddenUrlValidator()
-  //   ])
-  // });
-  // onSubmit(){
-    
-  // }
 
   formGroup = new FormGroup({
     url: new FormControl('', [
