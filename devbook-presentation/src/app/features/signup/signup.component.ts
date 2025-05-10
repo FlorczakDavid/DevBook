@@ -25,31 +25,15 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    // if (this.signup.valid) {
-    //   const FormData = {
-    //     username: this.signup.value.username,
-    //     password: this.signup.value.password,
-    //   };
-    //   console.log('Form Data:', FormData);
-    //   this.accountService.createAccount(FormData).subscribe((response) => {
-    //     console.log('Account created successfully!', response);
-    //     console.log('Form Submitted!', this.signup.value);
-    //   });
-    // }
     if (this.signup.valid) {
-      console.log('valided form');
       const FormData = {
         username: this.signup.value.username,
         password: this.signup.value.password,
       };
-      console.log(FormData);
-      this.http.post('http://localhost:8080/accounts', FormData).subscribe({
-        next: (response) => {
-          console.log('La demande est encoyé', response);
-        },
-        error: (error) => {
-          console.error('Erreur d envoie', error);
-        },
+      console.log('Form Data:', FormData);
+      this.accountService.createAccount(FormData).subscribe((response) => {
+        console.log('Account created successfully!', response);
+        console.log('Form Submitted!', this.signup.value);
       });
     }
   }
