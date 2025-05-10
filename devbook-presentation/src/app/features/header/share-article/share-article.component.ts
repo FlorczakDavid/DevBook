@@ -30,10 +30,11 @@ export class ShareArticleComponent {
         })
         if(response.ok){
           alert('url correctly sent')
-        } else if(response.status >= 400 && response.status  <= 500){
-          alert('client error')
-        } else if(response.status >= 500 && response.status <= 600) {
-            alert('server error')
+        } else if (!response.ok){
+          const err = await response.json()
+          if(err){
+            alert(err.fieldsErrors.url)
+          }
         }
       } catch(err:any) {
         alert('an enexpected error has occured')
