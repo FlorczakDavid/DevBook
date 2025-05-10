@@ -1,9 +1,23 @@
+<div>
+    <!-- <form [formGroup]="urlForm" (ngSubmit)="onSubmit()">
+        <label for="url"></label>
+        <input type="text" id="url" formControlName="url">
+        <button type="submit" [disabled]="!urlForm.valid">V</button>
+    </form> -->
 
-<button (click)="showModal()">
-    <span class="material-symbols-outlined">
-        library_add
-    </span>
-</button>
-<app-modal *ngIf="isModalVisible" (close)="hideModal()"></app-modal>
-
-
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <label for="url">url:</label>
+        <input id="url" formControlName="url" />
+    
+        <div *ngIf="isInvalid('url')">
+          <span *ngIf="formGroup.get('url')?.errors?.['required']">
+            L'URL est obligatoire.
+          </span>
+          <span *ngIf="formGroup.get('url')?.errors?.['pattern']">
+            Format d'URL invalide.
+          </span>
+        </div>
+    
+        <button type="submit" [disabled]="!formGroup.valid">Envoyer</button>
+    </form>
+</div>

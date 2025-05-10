@@ -3,12 +3,25 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ProfileLinkComponent } from '../../features/header/profile-link/profile-link.component';
 import { NotificationComponent } from '../../features/header/notification/notification.component';
+<<<<<<< HEAD
 import {ShareArticleComponent} from '../../features/header/share-article/share-article.component';
 
 
 @Component({
   selector: 'app-header',
   imports: [NotificationComponent, ShareArticleComponent],
+=======
+import { ShareArticleComponent } from "../../features/header/share-article/share-article.component";
+@Component({
+  selector: 'app-header',
+  imports: [
+    CommonModule,
+    RouterLink,
+    NotificationComponent,
+    ProfileLinkComponent,
+    ShareArticleComponent
+],
+>>>>>>> shareArticle2
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

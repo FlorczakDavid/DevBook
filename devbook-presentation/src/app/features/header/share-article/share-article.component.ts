@@ -1,24 +1,49 @@
 import { Component } from '@angular/core';
-import { ModalComponent } from '../../../shared/modal/modal.component';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-share-article',
-  imports: [CommonModule, ModalComponent],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './share-article.component.html',
   styleUrl: './share-article.component.css'
 })
 export class ShareArticleComponent {
-  isModalVisible = false;
-  showModal(){
-    this.isModalVisible = true;
+
+  formGroup = new FormGroup({
+    url: new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,63}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/
+      ),
+    ]),
+  });
+
+  async onSubmit() {
+    if (this.formGroup.valid) {
+      console.log(this.formGroup.value.url);
+      try {
+        const response = await fetch('http://localhost:8080/article', {
+          method: "POST",
+          headers : {"Content-type": "application/json"},
+          body: JSON.stringify({url: this.formGroup.value.url})
+        })
+        if(response.ok){
+          alert('url correctly sent')
+        } else if (!response.ok){
+          const err = await response.json()
+          if(err){
+            alert(err.fieldsErrors.url)
+          }
+        }
+      } catch(err:any) {
+        alert('an enexpected error has occured')
+      } 
+    }
   }
-  hideModal(){
-    this.isModalVisible = false;
+
+  isInvalid(controlName: string): boolean {
+    const control = this.formGroup.get(controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
   }
-  // addArticle(){
-  //   var modal = document.getElementById("articleModal");
-  //   modal.style.display= "block";
-    //var btn = document.getElementById("articleModal");
-  // }
 }
