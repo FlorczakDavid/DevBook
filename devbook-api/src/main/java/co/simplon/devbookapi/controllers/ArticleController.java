@@ -11,11 +11,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/article")
-<<<<<<< HEAD
 @CrossOrigin("*")
-=======
-@CrossOrigin(origins = "*")
->>>>>>> shareArticle2
 public class ArticleController {
 
     private final ArticleService articleService;
