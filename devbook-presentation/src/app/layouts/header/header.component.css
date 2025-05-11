@@ -6,7 +6,7 @@
 }
 
 .noStyle{
-  background-color: white;
+  background-color: none;
   border: none;
   cursor: pointer;
 }
@@ -22,7 +22,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border: 1px solid black;
-  border-top: black;
-  height:3vw
+  border-bottom: 2px solid grey;
+  background-color:rgb(232, 229, 229) ;
+  height:3vw;
 }
