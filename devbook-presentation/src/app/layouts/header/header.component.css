@@ -1,0 +1,28 @@
+:host {
+  /* display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px; */
+}
+
+.noStyle{
+  background-color: none;
+  border: none;
+  cursor: pointer;
+}
+.noStyle:hover{
+  color: red;
+}
+.shareArticleContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iconContainer{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 2px solid grey;
+  background-color:rgb(232, 229, 229) ;
+  height:3vw;
+}
