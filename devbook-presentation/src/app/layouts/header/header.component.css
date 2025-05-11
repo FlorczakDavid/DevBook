@@ -4,3 +4,25 @@
   align-items: center;
   gap: 10px; */
 }
+
+.noStyle{
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+.noStyle:hover{
+  color: red;
+}
+.shareArticleContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iconContainer{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border: 1px solid black;
+  border-top: black;
+  height:3vw
+}

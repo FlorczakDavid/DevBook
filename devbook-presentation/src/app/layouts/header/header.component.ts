@@ -20,4 +20,8 @@ import {ShareArticleComponent} from '../../features/header/share-article/share-a
 export class HeaderComponent {
   // showNotification: boolean = localStorage.getItem('role') == 'MEMBER';
   showNotification: boolean = true; //pour tester
+  displayedShareArticle: boolean = false;
+  toggleShareArticle(){
+    this.displayedShareArticle = !this.displayedShareArticle;
+  }
 }
