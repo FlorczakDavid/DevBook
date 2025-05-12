@@ -7,8 +7,6 @@ CREATE TABLE t_accounts (
     statusEmail boolean,
     id_role INT NOT NULL,
     CONSTRAINT t_account_pkey PRIMARY KEY (id),
-    CONSTRAINT t_account_ukey unique (username)
+    CONSTRAINT t_account_ukey unique (username),
     CONSTRAINT fkey_role_name FOREIGN KEY(id_role) REFERENCES t_roles(id)
 );
-
-SELECT * FROM t_accounts;

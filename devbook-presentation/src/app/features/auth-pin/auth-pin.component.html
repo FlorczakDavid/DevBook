@@ -1,5 +1,5 @@
 <h1>Entrez le code PIN reçu par le mail</h1>
-<div>
+<div class="input-form">
     <form [formGroup]="pinForm" (ngSubmit)="onSubmit()">
         <div class="pinInputs">
             <input type="text" formControlName="pin1">
@@ -7,6 +7,8 @@
             <input type="text" formControlName="pin3">
             <input type="text" formControlName="pin4">
         </div>
-        <button>Envoyer</button>
+        <div class="button">
+            <button>Envoyer</button>
+        </div>
     </form>
 </div>
