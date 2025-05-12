@@ -1,3 +1,21 @@
 .pinInputs {
     display: flex;
 }
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.input-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
