@@ -17,6 +17,8 @@ export class ShareArticleComponent {
         /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,63}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/
       ),
     ]),
+    title: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required])
   });
 
   async onSubmit() {

@@ -12,6 +12,11 @@ export const routes: Routes = [
     loadComponent: () => import('./layouts/profile/profile.component')
       .then(mod => mod.ProfileComponent)
   },
+  {
+    path:'shareArticle',
+    loadComponent: () => import('./layouts/share-article/share-article.component')
+    .then(mod=>mod.ShareArticleComponent)
+  },
   { path: '**', component: NotFoundComponent }
 
 ];
