@@ -7,5 +7,3 @@ CREATE TABLE t_roles(
 	CONSTRAINT t_role_pkey PRIMARY KEY (id),
 	CONSTRAINT t_role_name_ukey UNIQUE (name)
 );
-
-SELECT * FROM t_roles;
