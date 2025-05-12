@@ -5,7 +5,8 @@ import { SignupComponent } from './features/signup/signup.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, SignupComponent],
+  imports: [RouterOutlet, HeaderComponent],
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

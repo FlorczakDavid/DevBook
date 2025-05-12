@@ -1,4 +1,28 @@
+
+
+
+<div class="iconContainer">
+
+  <a routerLink="/profile">
+    <app-profile-link></app-profile-link>
+  </a>
+
+  <button class="noStyle" (click)="toggleShareArticle()">
+    <span class="material-symbols-outlined">
+      add_box
+    </span>
+  </button>
+
 <app-notification *ngIf="showNotification"></app-notification>
-<a routerLink="/profile">
-  <app-profile-link></app-profile-link>
-</a>
+
+</div>
+
+
+
+<div *ngIf="displayedShareArticle" class="shareArticleContainer">
+  <app-share-article></app-share-article>
+</div>
+
+
+
+
