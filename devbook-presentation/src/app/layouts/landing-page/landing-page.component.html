@@ -1,1 +1,9 @@
-<p>landing-page works!</p>
+<div *ngIf="checkRole('anonyme')">
+    <app-anonymous-home></app-anonymous-home>
+</div>
+<div *ngIf="checkRole('MEMBER')">
+    <app-member-home></app-member-home>
+</div>
+<div *ngIf="checkRole('INTEGRATOR')">
+    <app-integrator-home></app-integrator-home>
+</div>
