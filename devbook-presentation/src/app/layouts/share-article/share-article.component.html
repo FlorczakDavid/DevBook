@@ -3,26 +3,6 @@
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       
       <div>
-        <label for="title">Title:</label>
-        <input id="title" formControlName="title" />
-        <div *ngIf="isInvalid('title')">
-          <span *ngIf="formGroup.get('title')?.errors?.['required']">
-            <small class="text-danger">Le titre est obligatoire.</small>
-          </span>
-        </div>
-      </div>  
-      
-      <div>
-        <label for="description">Description:</label>
-        <input id="description" formControlName="description" />
-        <div *ngIf="isInvalid('description')">
-          <span *ngIf="formGroup.get('description')?.errors?.['required']">
-            <small class="text-danger">La description est obligatoire.</small>
-          </span>
-        </div>
-      </div>  
-      
-      <div>
         <label for="url">Url:</label>
         <input id="url" formControlName="url" />
         <div *ngIf="isInvalid('url')">
