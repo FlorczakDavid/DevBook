@@ -12,4 +12,5 @@ import java.util.Set;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     boolean existsByUrl(String url);
+    List<Article> findAllByCategoriesContaining(String category);
 }
