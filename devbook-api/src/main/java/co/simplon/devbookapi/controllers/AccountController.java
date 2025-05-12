@@ -4,22 +4,37 @@ import co.simplon.devbookapi.dtos.AccountCreate;
 import co.simplon.devbookapi.dtos.AuthInfo;
 import co.simplon.devbookapi.dtos.Authentication;
 import co.simplon.devbookapi.dtos.ProfileUpdate;
+import co.simplon.devbookapi.entities.Account;
+import co.simplon.devbookapi.entities.EmailConfirmation;
+import co.simplon.devbookapi.repositories.AccountRepository;
+import co.simplon.devbookapi.repositories.EmailConfirmationRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import co.simplon.devbookapi.services.AccountAuthenticateService;
 import co.simplon.devbookapi.services.AccountService;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
     public final AccountService service;
     public final AccountAuthenticateService authService;
+    private final EmailConfirmationRepository emailConfirmationRepository;
+    private final AccountRepository accountRepository;
 
-    public AccountController(AccountService service, AccountAuthenticateService authService) {
+    public AccountController(AccountService service,
+                             AccountAuthenticateService authService,
+                             EmailConfirmationRepository emailConfirmationRepository,
+                             AccountRepository accountRepository) {
         this.service = service;
         this.authService = authService;
+        this.emailConfirmationRepository = emailConfirmationRepository;
+        this.accountRepository = accountRepository;
     }
 
     @PostMapping
@@ -59,4 +74,22 @@ public class AccountController {
     	service.updateProfile(inputs);
     }
     
+
+    @GetMapping("/confirm/{uuidToken}")
+    public ResponseEntity<String> confirmEmail(@PathVariable String uuidToken) {
+        EmailConfirmation emailConfirmation = emailConfirmationRepository.findByUuidToken(uuidToken)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Token not found"));
+
+        if (emailConfirmation.getExpiration().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token expired");
+        }
+
+        Account account = emailConfirmation.getAccount();
+        account.setStatusEmail(true);
+        accountRepository.save(account);
+        emailConfirmationRepository.deleteByUuidToken(uuidToken);
+
+        return ResponseEntity.ok("Email confirmed successfully");
+    }
+
 }
