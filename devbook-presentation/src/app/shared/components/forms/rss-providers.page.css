@@ -1,0 +1,140 @@
+/* Style général du formulaire */
+form {
+  max-width: 1024px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  width: 800px;
+}
+
+/* Style des labels */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Style des champs de saisie */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: #060606;
+  outline: none;
+}
+
+/* Style des messages d'erreur */
+small {
+  color: #d9534f;
+  font-size: 14px;
+}
+
+/* Style du bouton de soumission */
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #060606;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b32400;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/*-----------------Toast Success ---------------------*/
+#toast-container{
+  background-color: #c6f8d1;
+  position: fixed;
+  border-radius: 8px;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.success {
+  background-color: #c6f8d1; /* Vert élégant pour le succès */
+  color: #155724; /* Vert foncé pour le texte */
+  border: 1px solid #c3e6cb; /* Bordure verte */
+  padding: 10px 20px;
+}
+
+.toast {
+  background-color: #c6f8d1; /* Vert élégant pour le succès */
+  width: 500px;
+  color: #fff;
+  padding: 15px 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid #218838; /* Bordure légèrement plus foncée */
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 10s ease, transform 10s ease;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 10px;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast strong {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.toast p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.toast a {
+  color: #ffc107;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.toast a:hover {
+  color: #ffdd57;
+}
+
+.toast-icon {
+  font-size: 24px;
+  color: #fff;
+}
+
+/*-----------------Toast Error ---------------------*/
+.toast .error {
+  background-color: #f8d7da; /* Rouge clair pour l'erreur */
+  color: #721c24; /* Rouge foncé pour le texte */
+  border: 1px solid #f5c6cb; /* Bordure rouge */
+}
+
+.toast.error .toast-icon {
+  color: #721c24; /* Icône rouge foncé */
+}
