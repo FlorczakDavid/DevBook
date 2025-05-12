@@ -7,6 +7,7 @@ import co.simplon.devbookapi.repositories.ArticleRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,13 +21,14 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public void postArticle(ArticleCreate input) throws IOException {
+    public ResponseEntity<Object> postArticle(ArticleCreate input) throws IOException {
         try{
             ValidArticle validatedArticle = validArticle(input);
             createArticle(validatedArticle);
         }catch(IOException e){
             System.out.println("Cannot access to the article");
         }
+        return null;
     }
 
     private ValidArticle validArticle(ArticleCreate input) throws IOException {
