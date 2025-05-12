@@ -8,6 +8,11 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'auth-pin/:token', component: AuthPinComponent },
   {
+    path: 'rss-providers',
+    loadComponent: () => import('./features/rss-providers/rss-providers.component')
+      .then(mod => mod.RssProvidersComponent)
+  },
+  {
     path: 'profile',
     loadComponent: () => import('./layouts/profile/profile.component')
       .then(mod => mod.ProfileComponent)

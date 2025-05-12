@@ -5,7 +5,9 @@ import {RssProvidersPage} from '../../shared/components/forms/rss-providers.page
 import {RssProvider} from '../../shared/components/@types/rss-provider';
 @Component({
   selector: 'app-rss-providers',
-  imports: [],
+  imports: [
+    RssProvidersPage,HttpClientModule
+  ],
   templateUrl: './rss-providers.component.html',
   styleUrl: './rss-providers.component.css'
 })
