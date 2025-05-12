@@ -81,7 +81,7 @@ public class AccountAuthenticateService {
 						.orElseThrow(() -> new RuntimeException("Account not found"));
 				Role role = account.getRole();
 				String tokenJWT = jwtProvider.create(account.getUsername(), role);
-				AuthInfo info = new AuthInfo(tokenJWT);
+				AuthInfo info = new AuthInfo(tokenJWT, role.getName());
 				return info;
 			}else {
 				throw new BadCredentialsException("Pin is not correct");
