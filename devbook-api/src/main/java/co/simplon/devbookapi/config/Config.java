@@ -85,7 +85,7 @@ public class Config {
     	
     	return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
 				.authorizeHttpRequests((req) -> req
-						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**").anonymous())
+						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**", "/article").anonymous())
 				.authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
 				.oauth2ResourceServer((srv) -> srv.jwt(Customizer.withDefaults()))
 				.build();
