@@ -3,6 +3,7 @@ package co.simplon.devbookapi.controllers;
 import co.simplon.devbookapi.dtos.AccountCreate;
 import co.simplon.devbookapi.dtos.AuthInfo;
 import co.simplon.devbookapi.dtos.Authentication;
+import co.simplon.devbookapi.dtos.ProfileUpdate;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -45,4 +46,17 @@ public class AccountController {
     AuthInfo verifyPin(@PathVariable("token") String token, @RequestBody String pin) {
     	return authService.verifyPin(pin, token);
     }
+    
+    @GetMapping("/profile/{token}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    Object getProfile(@PathVariable("token") String token) {
+    	return service.getProfile(token);
+    }
+    
+    @PatchMapping("/updateProfile")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    void updateProfile(@RequestBody ProfileUpdate inputs) {
+    	service.updateProfile(inputs);
+    }
+    
 }

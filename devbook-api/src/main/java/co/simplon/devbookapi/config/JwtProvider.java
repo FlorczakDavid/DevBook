@@ -32,10 +32,17 @@ public class JwtProvider {
 
         String authority = role.getName();
 
-            Builder builder = JWT.create().withIssuedAt(issuedAt).withSubject(subject).withExpiresAt(OffsetDateTime.now().plusMinutes(expirationMinutes).toInstant())
+            Builder builder = JWT.create()
+                    .withIssuedAt(issuedAt)
+                    .withSubject(subject)
+                    .withExpiresAt(OffsetDateTime.now().plusMinutes(expirationMinutes).toInstant())
                     .withIssuer(issuer)
                     .withClaim("role", authority);
             return builder.sign(algorithm);
     }
+
+	public String getSub(String token) {
+		return JWT.decode(token).getSubject();
+	}
 
 }

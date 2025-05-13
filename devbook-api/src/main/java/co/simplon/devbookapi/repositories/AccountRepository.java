@@ -3,7 +3,11 @@ package co.simplon.devbookapi.repositories;
 import java.util.Optional;
 
 import co.simplon.devbookapi.entities.Account;
+import co.simplon.devbookapi.dtos.ProfileDetails;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.stereotype.Repository;
 
 
@@ -16,4 +20,10 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<Account> findAllByUsernameIgnoreCase(String username);
 
     Optional<Account> findById(Long id);
+
+	ProfileDetails getNotifArticleAndNotifRssByUsername(String token);
+
+	@Modifying
+	@NativeQuery("UPDATE t_accounts as a SET notif_article = ?2, notif_rss = ?3 where a.username = ?1")
+	void updateProfile(String username, boolean notifArticle, boolean notifRss);
 }
