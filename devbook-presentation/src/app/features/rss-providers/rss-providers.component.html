@@ -1,0 +1,7 @@
+<div class="container">
+  <h2>Fournissez le lien vers la Source RSS</h2>
+  <app-rss-form    [formGroup]="rssProviderForm"
+                   [toastMessage]="toastMessage"
+                   (formSubmit)="onSubmit()"
+  ></app-rss-form>
+</div>

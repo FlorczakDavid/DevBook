@@ -1,6 +1,8 @@
 package co.simplon.devbookapi.entities;
 
 import jakarta.persistence.*;
+import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_articles")
@@ -25,6 +27,17 @@ public class Article {
 
     @Column(name = "authors")
     private String authors;
+
+    @Column(name = "published_date")
+    private ZonedDateTime publishedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private RssProvider provider;
+
+    @ElementCollection
+    private Set<String> categories;
+
 
     public Long getId() {
         return id;
@@ -70,7 +83,36 @@ public class Article {
         return authors;
     }
 
-    public void setAuthors(String authors) {
-        this.authors = authors;
+    public void setAuthors(String author) {
+        this.authors = author;
+    }
+
+    public ZonedDateTime getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(ZonedDateTime publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public Set<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<String> categories) {
+        this.categories = categories;
+    }
+
+    public RssProvider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(RssProvider provider) {
+        this.provider = provider;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Article {title ='%s', publishedDate='%s', authors ='%s'}, categories=[LAZY_LOADED]", title, publishedDate, authors);
     }
 }
