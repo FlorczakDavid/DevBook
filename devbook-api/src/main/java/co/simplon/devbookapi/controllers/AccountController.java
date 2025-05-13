@@ -3,6 +3,7 @@ package co.simplon.devbookapi.controllers;
 import co.simplon.devbookapi.dtos.AccountCreate;
 import co.simplon.devbookapi.dtos.AuthInfo;
 import co.simplon.devbookapi.dtos.Authentication;
+import co.simplon.devbookapi.dtos.EmailConfirmationInfo;
 import co.simplon.devbookapi.entities.Account;
 import co.simplon.devbookapi.entities.EmailConfirmation;
 import co.simplon.devbookapi.repositories.AccountRepository;
@@ -42,9 +43,8 @@ public class AccountController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     void create(@RequestBody @Valid AccountCreate inputs) {
-        service.create(inputs);
+       service.create(inputs);
     }
-
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -81,10 +81,5 @@ public class AccountController {
         return ResponseEntity.ok("eMail ok");
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    void create(@RequestBody @Valid AccountCreate inputs) {
-        Account account = service.create(inputs);
-        emailConfirmationService.sendConfirmationEmail(account);
-    }
+
 }
