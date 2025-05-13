@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ProfileLinkComponent } from '../../features/header/profile-link/profile-link.component';
 import { NotificationComponent } from '../../features/header/notification/notification.component';
-import {ShareArticleComponent} from '../../features/header/share-article/share-article.component';
+import {ShareArticleIconComponent} from '../../features/header/share-article-icon/share-article-icon.component';
+import { ShareArticleComponent } from '../share-article/share-article.component';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ import {ShareArticleComponent} from '../../features/header/share-article/share-a
     RouterLink,
     NotificationComponent,
     ProfileLinkComponent,
-    ShareArticleComponent
+    ShareArticleIconComponent
 ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
@@ -20,8 +21,8 @@ import {ShareArticleComponent} from '../../features/header/share-article/share-a
 export class HeaderComponent {
   // showNotification: boolean = localStorage.getItem('role') == 'MEMBER';
   showNotification: boolean = true; //pour tester
-  displayedShareArticle: boolean = false;
-  toggleShareArticle(){
-    this.displayedShareArticle = !this.displayedShareArticle;
-  }
+  // displayedShareArticle: boolean = false;
+  // toggleShareArticle(){
+  //   this.displayedShareArticle = !this.displayedShareArticle;
+  // }
 }

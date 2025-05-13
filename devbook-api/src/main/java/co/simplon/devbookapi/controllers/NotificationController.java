@@ -10,8 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import co.simplon.devbookapi.services.NotificationService;
 
-@CrossOrigin(origins = "*")
-@RestController
+@RestController("/sse")
 public class NotificationController {
 	private final NotificationService notificationService;
 	
@@ -19,7 +18,7 @@ public class NotificationController {
 		this.notificationService = notificationService;
 	}
 
-    @GetMapping("/sse")
+    @GetMapping("/subscribe")
     public SseEmitter streamSse() {
     	return notificationService.subscribe();
     }

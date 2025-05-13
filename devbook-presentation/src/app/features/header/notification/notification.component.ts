@@ -12,11 +12,13 @@ export class NotificationComponent {
   abortController: AbortController = new AbortController()
 
   ngOnInit() {
-    this.startListening();
+    if(localStorage.getItem('role') === 'MEMBER') {
+      this.startListening();
+    }
   }
 
   startListening() {
-    fetchEventSource('http://localhost:8080/sse', {
+    fetchEventSource('http://localhost:8080/sse/subscribe', {
       method: 'GET',
       onmessage: (ev: EventSourceMessage) => {
         console.log(ev);

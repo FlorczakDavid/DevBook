@@ -1,17 +1,20 @@
-<div>
-
+<div class="shareArticle-container">
+    <h2>Partager un article</h2>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-        <label for="url">url:</label>
+      
+      <div>
+        <label for="url">Url:</label>
         <input id="url" formControlName="url" />
-    
         <div *ngIf="isInvalid('url')">
           <span *ngIf="formGroup.get('url')?.errors?.['required']">
-            L'URL est obligatoire.
+            <small class="text-danger">L'URL est obligatoire.</small>
           </span>
           <span *ngIf="formGroup.get('url')?.errors?.['pattern']">
-            Format d'URL invalide.
+            <small class="text-danger">Format d'URL invalide.</small>
           </span>
         </div>
+      </div>  
+      
     
         <button type="submit" [disabled]="!formGroup.valid">Envoyer</button>
     </form>

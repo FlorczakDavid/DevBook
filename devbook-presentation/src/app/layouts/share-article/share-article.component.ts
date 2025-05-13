@@ -14,14 +14,16 @@ export class ShareArticleComponent {
     url: new FormControl('', [
       Validators.required,
       Validators.pattern(
-        /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,63}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/
+        /^https:\/\/([a-zA-Z0-9]{1}[a-zA-Z0-9-]{0,61}[a-zA-Z0-9]{1}|[a-zA-Z0-9]{1,63})(\.([a-zA-Z0-9]{1}[a-zA-Z0-9-]{0,61}[a-zA-Z0-9]{1}|[a-zA-Z0-9]{1,63})){0,3}\.([a-zA-Z0-9]{1}[a-zA-Z0-9-]{0,61}[a-zA-Z0-9]{1}|[a-zA-Z0-9]{2,63})$/
       ),
     ]),
   });
 
   async onSubmit() {
     if (this.formGroup.valid) {
-      console.log(this.formGroup.value.url);
+      console.log('form', this.formGroup.value);
+      // console.log('url', this.formGroup.value.url);
+
       try {
         const response = await fetch('http://localhost:8080/article', {
           method: "POST",

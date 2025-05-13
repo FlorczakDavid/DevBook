@@ -19,13 +19,19 @@ public class Account {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "statusemail")
+    @Column(name = "status_email")
     private boolean statusEmail;
+    
+    @Column(name = "notif_article")
+    private boolean notifArticle;
+    
+    @Column(name = "notif_rss")
+    private boolean notifRss;
 
     @ManyToOne
     @JoinColumn(name = "id_role")
     private Role role;
-
+    
     public Long getId() {
 		return id;
 	}
@@ -62,12 +68,29 @@ public class Account {
         return statusEmail;
     }
 
-    public void setStatusEmail(boolean statusEmail) {
+    public boolean isNotifArticle() {
+		return notifArticle;
+	}
+
+	public void setNotifArticle(boolean notifArticle) {
+		this.notifArticle = notifArticle;
+	}
+
+	public boolean isNotifRss() {
+		return notifRss;
+	}
+
+	public void setNotifRss(boolean notifRss) {
+		this.notifRss = notifRss;
+	}
+
+	public void setStatusEmail(boolean statusEmail) {
         this.statusEmail = statusEmail;
     }
 
-    @Override
-    public String toString() {
-        return "{username=" + username + ", password= [PROTECTED], statusEmail=" + statusEmail + "}";
-    }
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", username=" + username + ", password= [PROTECTED], statusEmail="
+				+ statusEmail + ", notifArticle=" + notifArticle + ", notifRss=" + notifRss + ", role=" + role + "]";
+	}
 }
