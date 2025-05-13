@@ -31,6 +31,8 @@ public class AccountService {
         entity.setUsername(inputs.username());
         entity.setPassword(passwordEncoder.encode(inputs.password()));
         entity.setRole(roleRepos.findByName("MEMBER"));
+        entity.setNotifArticle(false);
+        entity.setNotifRss(false);
         repos.save(entity);
     }
 
