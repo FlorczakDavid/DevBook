@@ -8,6 +8,11 @@ export const routes: Routes = [
   { path: 'auth-pin/:token', component: AuthPinComponent },
   { path: '', component: LandingPageComponent },
   {
+    path: 'rss-providers',
+    loadComponent: () => import('./features/rss-providers/rss-providers.component')
+      .then(mod => mod.RssProvidersComponent)
+  },
+  {
     path: 'profile',
     loadComponent: () => import('./layouts/profile/profile.component')
       .then(mod => mod.ProfileComponent)
@@ -18,5 +23,4 @@ export const routes: Routes = [
     .then(mod=>mod.ShareArticleComponent)
   },
   { path: '**', component: NotFoundComponent }
-
 ];

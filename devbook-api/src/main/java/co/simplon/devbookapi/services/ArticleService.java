@@ -26,7 +26,7 @@ public class ArticleService {
             ValidArticle validatedArticle = validArticle(input);
             createArticle(validatedArticle);
         }catch(IOException e){
-            System.out.println(e.getMessage());
+            System.out.println("Cannot access to the article");
         }
         return null;
     }

@@ -1,0 +1,18 @@
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div class="form-group">
+    <label for="url">Lien Fournisseur:</label>
+    <input id="url" formControlName="url" placeholder="Entrez une URL"/>
+    <small
+      class="text-danger"
+      *ngIf="isInvalidAndTouchedOrDirty(formGroup.controls['url'])"
+    >
+      <span *ngIf="formGroup.controls['url'].errors?.['required']"
+      >Url is required.</span
+      >
+
+    </small>
+    <div id="toast-container" class="toast-container"></div>
+  </div>
+
+  <button type="submit" [disabled]="formGroup.invalid">Envoyer</button>
+</form>
