@@ -31,10 +31,12 @@ public class RssService {
     private final RssProviderRepository providerRepository;
     private final ArticleRepository articleRepository;
     private final Validator validator;
+    private final NotificationService notificationService;
 
-    public RssService(RssProviderRepository providerRepository, ArticleRepository articleRepository) {
+    public RssService(RssProviderRepository providerRepository, ArticleRepository articleRepository, NotificationService notificationService) {
         this.providerRepository = providerRepository;
         this.articleRepository = articleRepository;
+        this.notificationService = notificationService;
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         this.validator = factory.getValidator();
     }
@@ -82,6 +84,7 @@ public class RssService {
             article.setProvider(provider);
             articleRepository.save(article);
         }
+        notificationService.sendNotif();
         return provider;
     }
 
@@ -91,6 +94,7 @@ public class RssService {
         provider.setLink(providerCreate.link());
         provider.setTitle(providerCreate.title());
         provider.setDescription(providerCreate.description());
+        provider.setImageUrl(providerCreate.imageUrl());
         provider.setLastUpdate(providerCreate.lastUpdate());
         return providerRepository.save(provider);
     }
