@@ -86,7 +86,9 @@ public class Config {
     	return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
 				.authorizeHttpRequests((req) -> req
 						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**", "/article").anonymous()
-						.requestMatchers(HttpMethod.GET, "/sse/*").hasRole("MEMBER"))
+						.requestMatchers(HttpMethod.GET, "/sse/*").hasRole("MEMBER")
+						.requestMatchers(HttpMethod.POST, "/sse", "/notify").hasAnyRole("MEMBER", "INTEGRATOR")
+						.requestMatchers(HttpMethod.POST, "/rss/import").hasRole("INTEGRATOR"))
 				.authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
 				.oauth2ResourceServer((srv) -> srv.jwt(Customizer.withDefaults()))
 				.build();
