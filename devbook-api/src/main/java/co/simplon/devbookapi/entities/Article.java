@@ -38,6 +38,8 @@ public class Article {
     @ElementCollection
     private Set<String> categories;
 
+    @OneToMany(mappedBy = "article")
+    Set<ShareArticle> shareArticles;
 
     public Long getId() {
         return id;
@@ -111,8 +113,27 @@ public class Article {
         this.provider = provider;
     }
 
+    public Set<ShareArticle> getShareArticles() {
+        return shareArticles;
+    }
+
+    public void setShareArticles(Set<ShareArticle> shareArticles) {
+        this.shareArticles = shareArticles;
+    }
+
     @Override
     public String toString() {
-        return String.format("Article {title ='%s', publishedDate='%s', authors ='%s'}, categories=[LAZY_LOADED]", title, publishedDate, authors);
+        return "Article{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", title='" + title + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", description='" + description + '\'' +
+                ", authors='" + authors + '\'' +
+                ", publishedDate=" + publishedDate +
+                ", provider=" + provider +
+                ", categories=" + categories +
+                ", shareArticles=" + shareArticles +
+                '}';
     }
 }

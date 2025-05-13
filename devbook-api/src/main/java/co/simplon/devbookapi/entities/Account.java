@@ -2,7 +2,7 @@ package co.simplon.devbookapi.entities;
 
 import jakarta.persistence.*;
 
-
+import java.util.Set;
 
 @Entity
 @Table(name = "t_accounts")
@@ -31,6 +31,9 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "id_role")
     private Role role;
+
+    @OneToMany(mappedBy = "account")
+    Set<ShareArticle> shareArticles;
     
     public Long getId() {
 		return id;
@@ -88,9 +91,25 @@ public class Account {
         this.statusEmail = statusEmail;
     }
 
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", username=" + username + ", password= [PROTECTED], statusEmail="
-				+ statusEmail + ", notifArticle=" + notifArticle + ", notifRss=" + notifRss + ", role=" + role + "]";
-	}
+    public Set<ShareArticle> getShareArticles() {
+        return shareArticles;
+    }
+
+    public void setShareArticles(Set<ShareArticle> shareArticles) {
+        this.shareArticles = shareArticles;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", statusEmail=" + statusEmail +
+                ", notifArticle=" + notifArticle +
+                ", notifRss=" + notifRss +
+                ", role=" + role +
+                ", shareArticles=" + shareArticles +
+                '}';
+    }
 }
