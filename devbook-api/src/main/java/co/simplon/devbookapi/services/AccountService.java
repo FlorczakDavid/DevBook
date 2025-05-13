@@ -14,13 +14,13 @@ import co.simplon.devbookapi.repositories.AccountRepository;
 @Transactional(readOnly = true)
 public class AccountService {
 
-    private final AccountRepository repos;
+    private final AccountRepository accountRepos;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepos;
 
-    public AccountService(AccountRepository repos, PasswordEncoder passwordEncoder, JwtProvider jwtProvider,
+    public AccountService(AccountRepository accountRepos, PasswordEncoder passwordEncoder, JwtProvider jwtProvider,
                           RoleRepository roleRepos) {
-        this.repos = repos;
+        this.accountRepos = accountRepos;
         this.passwordEncoder = passwordEncoder;
         this.roleRepos = roleRepos;
     }
@@ -31,7 +31,8 @@ public class AccountService {
         entity.setUsername(inputs.username());
         entity.setPassword(passwordEncoder.encode(inputs.password()));
         entity.setRole(roleRepos.findByName("MEMBER"));
-        repos.save(entity);
+        entity.setStatusEmail(false);
+        accountRepos.save(entity);
     }
 
 

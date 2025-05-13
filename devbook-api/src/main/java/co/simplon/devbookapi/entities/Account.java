@@ -62,7 +62,7 @@ public class Account {
         return statusEmail;
     }
 
-    public void setStatusEmail(boolean statusEmail) {
+    public  void setStatusEmail(boolean statusEmail) {
         this.statusEmail = statusEmail;
     }
 
