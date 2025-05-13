@@ -33,9 +33,9 @@ public class JwtProvider {
         String authority = role.getName();
 
             Builder builder = JWT.create()
-            		.withIssuedAt(issuedAt)
-            		.withSubject(subject)
-            		.withExpiresAt(OffsetDateTime.now().plusMinutes(100000).toInstant())
+                    .withIssuedAt(issuedAt)
+                    .withSubject(subject)
+                    .withExpiresAt(OffsetDateTime.now().plusMinutes(expirationMinutes).toInstant())
                     .withIssuer(issuer)
                     .withClaim("role", authority);
             return builder.sign(algorithm);

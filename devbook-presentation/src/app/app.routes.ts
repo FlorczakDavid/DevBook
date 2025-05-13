@@ -4,13 +4,15 @@ import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignupComponent } from './features/signup/signup.component';
 import { AuthPinComponent } from './features/auth-pin/auth-pin.component';
 import { LandingPageComponent } from './layouts/landing-page/landing-page.component';
+import {accountGuard} from './core/guards/account.guard';
 export const routes: Routes = [
   { path: 'auth-pin/:token', component: AuthPinComponent },
   { path: '', component: LandingPageComponent },
   {
     path: 'rss-providers',
     loadComponent: () => import('./features/rss-providers/rss-providers.component')
-      .then(mod => mod.RssProvidersComponent)
+      .then(mod => mod.RssProvidersComponent),
+    canActivate: [accountGuard]
   },
   {
     path: 'profile',
