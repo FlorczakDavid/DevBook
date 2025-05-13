@@ -94,6 +94,4 @@ public class AccountController {
 
         return ResponseEntity.ok("eMail ok");
     }
-
-
 }
