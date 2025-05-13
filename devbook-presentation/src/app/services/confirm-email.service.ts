@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ConfirmEmailService {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:8080/accounts/confirm/';
+  private confirmUrl = 'http://localhost:8080/accounts/confirm/';
 
   confirm(token: string): Observable<string> {
-    return this.http.get(this.baseUrl + token, { responseType: 'text' });
+    return this.http.get(this.confirmUrl + token, { responseType: 'text' });
   }
 }
