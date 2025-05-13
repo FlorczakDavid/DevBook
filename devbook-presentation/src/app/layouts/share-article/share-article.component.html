@@ -1,7 +1,7 @@
-<div class="shareArticle-container">
+<div class="container">
     <h2>Partager un article</h2>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-      
+
       <div>
         <label for="url">Url:</label>
         <input id="url" formControlName="url" />
@@ -13,9 +13,9 @@
             <small class="text-danger">Format d'URL invalide.</small>
           </span>
         </div>
-      </div>  
-      
-    
+      </div>
+
+
         <button type="submit" [disabled]="!formGroup.valid">Envoyer</button>
     </form>
 </div>
