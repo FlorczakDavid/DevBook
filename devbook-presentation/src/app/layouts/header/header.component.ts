@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { ProfileLinkComponent } from '../../features/header/profile-link/profile-link.component';
 import { NotificationComponent } from '../../features/header/notification/notification.component';
 import {ShareArticleIconComponent} from '../../features/header/share-article-icon/share-article-icon.component';
-import { ShareArticleComponent } from '../share-article/share-article.component';
 
 @Component({
   selector: 'app-header',
@@ -25,4 +24,7 @@ export class HeaderComponent {
   // toggleShareArticle(){
   //   this.displayedShareArticle = !this.displayedShareArticle;
   // }
+  logout() {
+    localStorage.clear();
+  }
 }

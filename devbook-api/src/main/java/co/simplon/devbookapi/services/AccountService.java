@@ -1,6 +1,8 @@
 package co.simplon.devbookapi.services;
 
 import co.simplon.devbookapi.dtos.AccountCreate;
+import co.simplon.devbookapi.dtos.ProfileDetails;
+import co.simplon.devbookapi.dtos.ProfileUpdate;
 import co.simplon.devbookapi.repositories.RoleRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,18 +13,20 @@ import co.simplon.devbookapi.repositories.AccountRepository;
 
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class AccountService {
 
-    private final AccountRepository repos;
+    private final AccountRepository accounts;
     private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepos;
+    private final JwtProvider jwtProvider;
+    private final RoleRepository roles;
 
-    public AccountService(AccountRepository repos, PasswordEncoder passwordEncoder, JwtProvider jwtProvider,
-                          RoleRepository roleRepos) {
-        this.repos = repos;
+    public AccountService(AccountRepository accounts, PasswordEncoder passwordEncoder, JwtProvider jwtProvider,
+                          RoleRepository roles) {
+        this.accounts = accounts;
         this.passwordEncoder = passwordEncoder;
-        this.roleRepos = roleRepos;
+        this.roles = roles;
+        this.jwtProvider = jwtProvider;
     }
 
     @Transactional
@@ -30,14 +34,24 @@ public class AccountService {
         Account entity = new Account();
         entity.setUsername(inputs.username());
         entity.setPassword(passwordEncoder.encode(inputs.password()));
-        entity.setRole(roleRepos.findByName("MEMBER"));
+        entity.setRole(roles.findByName("MEMBER"));
         entity.setNotifArticle(false);
         entity.setNotifRss(false);
-        repos.save(entity);
+        accounts.save(entity);
     }
 
 
     public String getAccount() {
         return "Account";
     }
+
+	public ProfileDetails getProfile(String token) {
+		String username = jwtProvider.getSub(token);
+		return accounts.getNotifArticleAndNotifRssByUsername(username);
+	}
+
+	public void updateProfile(ProfileUpdate inputs) {
+		String username = jwtProvider.getSub(inputs.token());
+		accounts.updateProfile(username, inputs.notifArticle(), inputs.notifRss());
+	}
 }

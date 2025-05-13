@@ -20,6 +20,9 @@ export class NotificationComponent {
   startListening() {
     fetchEventSource('http://localhost:8080/sse/subscribe', {
       method: 'GET',
+      headers: {
+        'Authorization':  `Bearer ${localStorage.getItem('token')}`
+      },
       onmessage: (ev: EventSourceMessage) => {
         console.log(ev);
         const gotJson = JSON.parse(ev.data);

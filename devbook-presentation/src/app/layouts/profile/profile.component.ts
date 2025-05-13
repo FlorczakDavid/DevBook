@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription } from '../../core/models/subscription';
+import { Profile } from '../../core/models/Profile';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 
@@ -11,24 +11,32 @@ import { JsonPipe } from '@angular/common';
 })
 export class ProfileComponent {
   // model = new Subscription(localStorage.getItem("subsciption.article") == 'TRUE', localStorage.getItem("subsciption.rss") == 'TRUE');
-  model = new Subscription(false, true);
+  model = new Profile(true, true);
 
-  onSubmit() {
-    localStorage.setItem("subscription.article", this.model.article.toString().toUpperCase())
-    localStorage.setItem("subscription.rss", this.model.rss.toString().toUpperCase())
-    this.updateDB();
+  ngOnInit() {
+    const token = localStorage.getItem('token');
+    this.getUserProfile(token!).then(result => {
+      this.model = result;
+    });
   }
 
-  // TODO - à exporter
-  async updateDB() {
-    const url = "http://localhost:8080/accounts/set-notifications";
+  onSubmit() {
+    this.updateProfile(this.model.article, this.model.rss);
+  }
+
+  async updateProfile(articleSub: boolean, rssSub: boolean) {
+    const url = "http://localhost:8080/accounts/updateProfile";
     try {
       const response = await fetch(url, {
-        method: "POST",
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization':  `Bearer ${localStorage.getItem('token')}`
+        },
         body: JSON.stringify({
-          user: localStorage.getItem("account.id"),
-          article: localStorage.getItem("subsciption.article") == 'TRUE',
-          rss: localStorage.getItem("subsciption.rss") == 'TRUE'
+          token: localStorage.getItem('token'),
+          notifArticle: articleSub,
+          notifRss: rssSub
         })
       });
       if (!response.ok) {
@@ -40,5 +48,28 @@ export class ProfileComponent {
     } catch (error: any) {
       console.error(error.message);
     }
+  }
+
+  async getUserProfile(token: string): Promise<Profile> {
+    const url = "http://localhost:8080/accounts/profile/"+token;
+    let ret = new Profile(true, false);
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          'Authorization':  `Bearer ${localStorage.getItem('token')}`
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const profile = await response.json();
+      ret.article = profile.notifArticle;
+      ret.rss = profile.notifRss;
+    } catch (error: any) {
+      console.error(error.message);
+    }
+    return ret;
   }
 }
