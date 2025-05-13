@@ -1,6 +1,10 @@
-<p>confirm-email works!</p>
-@if (message) {
-<div class="confirmation-message">
-  {{ message }}
+<div class="card">
+  <div class="card-body">
+    <p class="card-text align-center">La verité est ici</p>
+    @if (message) {
+    <div class="alert alert-success confirmation-message mt-3">
+      {{ message }}
+    </div>
+    }
+  </div>
 </div>
-}

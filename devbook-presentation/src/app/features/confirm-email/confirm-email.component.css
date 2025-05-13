@@ -1,4 +1,30 @@
 .confirmation-message {
-  padding: 1rem;
-  font-size: 1.2rem;
+  margin: 16px 0;
+  padding: 12px 20px;
+  background: #e6f7ee;
+  border: 1px solid #b7ebc6;
+  border-radius: 6px;
+  color: #237a4b;
+  font-size: 1rem;
+  font-family: inherit;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+p {
+  font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 12px;
+  font-family: inherit;
+  display: block;
+  margin-bottom: 6px;
+}
+
+body,
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.card {
+  margin: 0;
 }
