@@ -1,18 +1,17 @@
 package co.simplon.devbookapi.dtos;
 import co.simplon.devbookapi.validators.LinkUnique;
+import co.simplon.devbookapi.validators.LinkUniqueValidator;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.ZonedDateTime;
 
 public record RssProviderCreate(
-        @LinkUnique
-        @NotBlank
+        @NotBlank (groups = LinkUniqueValidator.class)
         String url,
         @NotBlank
         String link,
         @NotBlank
         String title,
-        @NotBlank
         String description,
         String imageUrl,
         ZonedDateTime lastUpdate
