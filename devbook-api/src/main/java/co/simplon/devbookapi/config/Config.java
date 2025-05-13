@@ -27,16 +27,16 @@ public class Config {
 
 	@Value("${co.simplon.devbook.tousBcrypt}")
 	private int tours;
-	
+
 	@Value("${co.simplon.devbook.secretJWT}")
 	private String secret;
-	
+
 	@Value("${co.simplon.devbook.hasExpiration}")
 	private boolean hasExpiration;
-	
+
 	@Value("${co.simplon.devbook.expirationMinutes}")
 	private int expirationMinutes;
-	
+
 	@Value("${co.simplon.devbook.issuer}")
 	private String issuer;
 
@@ -46,43 +46,43 @@ public class Config {
 
 			@Value("${co.simplon.devbook.cors}")
 			private String origins;
-			
+
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedMethods("POST", "GET", "PATCH", "PUT", "DELETE").allowedOrigins(origins);
 			}
 		};
 	}
-	
+
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(tours);
 	}
-	
+
     @Bean
     JwtProvider jwtProvider() {
     Algorithm algorithm = Algorithm.HMAC256(secret);
     return new JwtProvider(algorithm, hasExpiration,expirationMinutes, issuer);
     }
-    
+
     @Bean
     JwtDecoder jwtDecoder() {
     	SecretKey secretKey = new SecretKeySpec(secret.getBytes(),
         "HMACSHA256");
- 
+
     OAuth2TokenValidator<Jwt> validators = JwtValidators.createDefaultWithIssuer(issuer);
-    
+
     NimbusJwtDecoder decoder = NimbusJwtDecoder.withSecretKey(secretKey)
         .macAlgorithm(MacAlgorithm.HS256)
         .build();
     decoder.setJwtValidator(validators);
-    
+
     return decoder;
     }
-    
-    @Bean 
+
+    @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    	
+
     	return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
 				.authorizeHttpRequests((req) -> req
 						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**", "/article").anonymous()
@@ -92,9 +92,9 @@ public class Config {
 				.authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
 				.oauth2ResourceServer((srv) -> srv.jwt(Customizer.withDefaults()))
 				.build();
-    	
+
     }
-    
+
 }
 
 
