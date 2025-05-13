@@ -37,6 +37,8 @@ public class AccountService {
         entity.setRole(roles.findByName("MEMBER"));
         entity.setNotifArticle(false);
         entity.setNotifRss(false);
+        entity.setRole(roleRepos.findByName("MEMBER"));
+        entity.setStatusEmail(false);
         accounts.save(entity);
     }
 
