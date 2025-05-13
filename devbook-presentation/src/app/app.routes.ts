@@ -3,15 +3,18 @@ import { NotFoundComponent } from './layouts/not-found/not-found.component';
 import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignupComponent } from './features/signup/signup.component';
 import { AuthPinComponent } from './features/auth-pin/auth-pin.component';
+import { ConfirmEmailComponent } from './features/confirm-email/confirm-email.component';
 export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'confirm/:token', component: ConfirmEmailComponent },
   { path: 'auth-pin/:token', component: AuthPinComponent },
   {
     path: 'profile',
-    loadComponent: () => import('./layouts/profile/profile.component')
-      .then(mod => mod.ProfileComponent)
+    loadComponent: () =>
+      import('./layouts/profile/profile.component').then(
+        (mod) => mod.ProfileComponent
+      ),
   },
-  { path: '**', component: NotFoundComponent }
-
+  { path: '**', component: NotFoundComponent },
 ];
