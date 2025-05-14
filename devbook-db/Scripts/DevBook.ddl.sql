@@ -26,9 +26,9 @@ CREATE TABLE t_2fa (
     pin_code CHAR(4) NOT NULL,
     uuid_token VARCHAR(36) NOT NULL,
     expiration TIMESTAMP,
-    accounts_id INT NOT NULL,
+    account_id INT NOT NULL,
     CONSTRAINT pk_t_2fa PRIMARY KEY (id),
-    CONSTRAINT fk_t_2fa_accounts_id FOREIGN KEY(accounts_id) REFERENCES t_accounts(id)
+    CONSTRAINT fk_t_2fa_accounts_id FOREIGN KEY(account_id) REFERENCES t_accounts(id)
 );
 
 CREATE TABLE t_articles (
@@ -60,7 +60,7 @@ CREATE TABLE t_share_articles(
     id int GENERATED ALWAYS AS IDENTITY,
     account_id int NOT NULL,
     article_id int NOT NULL,
-    published_date timestamp WITH time ZONE NOT NULL,
+    published_at timestamp WITHOUT time ZONE NOT NULL,
     CONSTRAINT pk_t_share_articles PRIMARY KEY (id),
     CONSTRAINT uk_t_share_articles_account_id_article_id UNIQUE (account_id, article_id)
 );
