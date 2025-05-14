@@ -84,7 +84,7 @@ public class RssService {
             article.setProvider(provider);
             articleRepository.save(article);
         }
-        notificationService.sendNotif();
+        notificationService.sendNotif("RSS");
         return provider;
     }
 

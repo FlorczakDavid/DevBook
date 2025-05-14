@@ -1,23 +1,28 @@
 <div class="iconContainer">
+    <h1>DEV<span>BOOK</span></h1>
+
+  @if(isIntegrator){
     <a routerLink="/rss-providers">
         <span class="material-symbols-outlined">
             rss_feed
         </span>
     </a>
+  }
+  @if(isLoggedIn && !isIntegrator){
     <a routerLink="/profile">
         <app-profile-link></app-profile-link>
     </a>
-
+  }
+  @if(isLoggedIn){
   <a routerLink="/shareArticle">
     <app-share-article-icon></app-share-article-icon>
   </a>
-
+  }
+  @if(isLoggedIn && !isIntegrator){
 <app-notification *ngIf="showNotification"></app-notification>
-
-<button type="button" (click)="logout()">logout</button>
+  }
+@if(isLoggedIn){
+    <button type="button" (click)="logout()">logout</button>
+}
 
 </div>
-
-
-
-

@@ -5,7 +5,7 @@ import {inject} from '@angular/core';
 export const accountGuard: CanActivateFn = (route, state) => {
   console.log(inject(AuthService).isAuthenticated())
   if (!inject(AuthService).isAuthenticated()) {
-    inject(Router).navigate(['/']);
+    inject(Router).navigate(['/auth']);
     return false;
   }
   return true;

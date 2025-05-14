@@ -24,6 +24,8 @@ import javax.crypto.SecretKey;
 
 import com.auth0.jwt.algorithms.Algorithm;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class Config {
 
@@ -85,21 +87,15 @@ public class Config {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-
-    	JwtGrantedAuthoritiesConverter authConverter = new JwtGrantedAuthoritiesConverter();
-        authConverter.setAuthoritiesClaimName("role");
-        authConverter.setAuthorityPrefix("ROLE_");
-
-        JwtAuthenticationConverter jwtAuthConverter = new JwtAuthenticationConverter();
-        jwtAuthConverter.setJwtGrantedAuthoritiesConverter(authConverter);
-
     	return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
 				.authorizeHttpRequests((req) -> req
 						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**").anonymous()
+						.requestMatchers(HttpMethod.GET, "/accounts/confirm/**").anonymous()
 						.requestMatchers(HttpMethod.POST, "/sse", "/notify").hasAnyRole("MEMBER", "INTEGRATOR")
 						.requestMatchers(HttpMethod.POST, "/rss/import").hasRole("INTEGRATOR")
 						.requestMatchers(HttpMethod.POST, "/article").hasRole("MEMBER")
                         .requestMatchers(HttpMethod.GET, "/sse/*", "/accounts/profile/**").hasRole("MEMBER")
+                        .requestMatchers(HttpMethod.GET, "/accounts/testRssAccounts").anonymous()
                         .requestMatchers(HttpMethod.PATCH).hasRole("MEMBER"))
                 .authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
 				.oauth2ResourceServer(srv -> srv.jwt((Customizer.withDefaults())))
