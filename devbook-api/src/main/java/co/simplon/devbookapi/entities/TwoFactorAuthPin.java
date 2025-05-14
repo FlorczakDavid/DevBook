@@ -31,7 +31,7 @@ public class TwoFactorAuthPin {
 	private LocalDateTime expiration;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "account_id")
     private Account user;
 
 	public TwoFactorAuthPin() {

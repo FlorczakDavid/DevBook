@@ -6,6 +6,7 @@ import { AuthPinComponent } from './features/auth-pin/auth-pin.component';
 import { ConfirmEmailComponent } from './features/confirm-email/confirm-email.component';
 import { LandingPageComponent } from './layouts/landing-page/landing-page.component';
 import { accountGuard } from './core/guards/account.guard';
+import { roleGuard } from './core/guards/role.guard';
 export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'signup', component: SignupComponent },
@@ -18,7 +19,7 @@ export const routes: Routes = [
       import('./features/rss-providers/rss-providers.component').then(
         (mod) => mod.RssProvidersComponent
       ),
-    canActivate: [accountGuard],
+    canActivate: [roleGuard],
   },
   {
     path: 'profile',
@@ -26,6 +27,7 @@ export const routes: Routes = [
       import('./layouts/profile/profile.component').then(
         (mod) => mod.ProfileComponent
       ),
+    canActivate: [accountGuard],
   },
   {
     path: 'shareArticle',
@@ -33,6 +35,15 @@ export const routes: Routes = [
       import('./layouts/share-article/share-article.component').then(
         (mod) => mod.ShareArticleComponent
       ),
+    canActivate: [accountGuard],
   },
+  {
+    path: 'auth',
+    loadComponent: () =>
+      import(
+        './layouts/landing-page/pages/anonymous-home/anonymous-home.component'
+      ).then((mod) => mod.AnonymousHomeComponent),
+  },
+
   { path: '**', component: NotFoundComponent },
 ];

@@ -30,7 +30,7 @@ public class Account {
     private boolean notifRss;
 
     @ManyToOne
-    @JoinColumn(name = "id_role")
+    @JoinColumn(name = "role_id")
     private Role role;
     
     public Long getId() {
