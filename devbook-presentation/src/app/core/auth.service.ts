@@ -13,4 +13,11 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  getAuthInfo(): any | null {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role'); // Stockez le rôle dans le localStorage
+    return token && role ? { token, role } : null;
+  }
+
 }
