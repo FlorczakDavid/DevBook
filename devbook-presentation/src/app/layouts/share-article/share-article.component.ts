@@ -22,12 +22,12 @@ export class ShareArticleComponent {
   async onSubmit() {
     if (this.formGroup.valid) {
       console.log('form', this.formGroup.value);
-      // console.log('url', this.formGroup.value.url);
+      const token = localStorage.getItem('token');
 
       try {
         const response = await fetch('http://localhost:8080/article', {
           method: "POST",
-          headers : {"Content-type": "application/json"},
+          headers : {"Content-type": "application/json", "Authorization": "Bearer:`token`"},
           body: JSON.stringify({url: this.formGroup.value.url})
         })
         if(response.ok){

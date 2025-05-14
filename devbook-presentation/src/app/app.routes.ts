@@ -4,7 +4,7 @@ import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignupComponent } from './features/signup/signup.component';
 import { AuthPinComponent } from './features/auth-pin/auth-pin.component';
 import { LandingPageComponent } from './layouts/landing-page/landing-page.component';
-import {accountGuard} from './core/guards/account.guard';
+import {accountGuard, shareArticleGuard} from './core/guards/account.guard';
 export const routes: Routes = [
   { path: 'auth-pin/:token', component: AuthPinComponent },
   { path: '', component: LandingPageComponent },
@@ -22,7 +22,8 @@ export const routes: Routes = [
   {
     path:'shareArticle',
     loadComponent: () => import('./layouts/share-article/share-article.component')
-    .then(mod=>mod.ShareArticleComponent)
+    .then(mod=>mod.ShareArticleComponent),
+    canActivate: [shareArticleGuard] 
   },
   { path: '**', component: NotFoundComponent }
 ];

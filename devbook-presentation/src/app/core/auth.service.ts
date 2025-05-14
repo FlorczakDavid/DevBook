@@ -13,4 +13,10 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+
+   isMember(): boolean {
+    const role = localStorage.getItem('role');
+    console.log('role', role)
+    return role === "MEMBER"
+  }
 }

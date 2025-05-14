@@ -10,3 +10,13 @@ export const accountGuard: CanActivateFn = (route, state) => {
   }
   return true;
 };
+
+export const shareArticleGuard: CanActivateFn = (route, state) => {
+  console.log(inject(AuthService).isAuthenticated())
+  if(inject(AuthService).isAuthenticated() && inject(AuthService).isMember()){
+    return true
+  }
+    inject(Router).navigate(['/']);
+    return false;
+};
+
