@@ -18,12 +18,14 @@ export const routes: Routes = [
   {
     path: 'profile',
     loadComponent: () => import('./layouts/profile/profile.component')
-      .then(mod => mod.ProfileComponent)
+      .then(mod => mod.ProfileComponent),
+    canActivate: [accountGuard]
   },
   {
     path:'shareArticle',
     loadComponent: () => import('./layouts/share-article/share-article.component')
-    .then(mod=>mod.ShareArticleComponent)
+    .then(mod=>mod.ShareArticleComponent),
+    canActivate: [accountGuard]
   },
   { path: '**', component: NotFoundComponent }
 ];
