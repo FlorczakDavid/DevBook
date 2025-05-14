@@ -4,6 +4,10 @@ import co.simplon.devbookapi.dtos.AccountCreate;
 import co.simplon.devbookapi.dtos.ProfileDetails;
 import co.simplon.devbookapi.dtos.ProfileUpdate;
 import co.simplon.devbookapi.repositories.RoleRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +24,23 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final RoleRepository roles;
+    private final JavaMailSender mailSender;
+    private final EmailConfirmationService emailConfirmationService;
+
+    @Value("${co.simplon.devbook.email.from}")
+    private String emailFrom;
+
+    @Value("${co.simplon.devbook.urlEmailConfirmation}")
+    private String urlEmailConfirmation;
 
     public AccountService(AccountRepository accounts, PasswordEncoder passwordEncoder, JwtProvider jwtProvider,
-                          RoleRepository roles) {
+                          RoleRepository roles, JavaMailSender mailSender, EmailConfirmationService emailConfirmationService) {
         this.accounts = accounts;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
         this.jwtProvider = jwtProvider;
+        this.mailSender = mailSender;
+        this.emailConfirmationService = emailConfirmationService;
     }
 
     @Transactional
@@ -37,9 +51,11 @@ public class AccountService {
         entity.setRole(roles.findByName("MEMBER"));
         entity.setNotifArticle(false);
         entity.setNotifRss(false);
+        entity.setRole(roles.findByName("MEMBER"));
+        entity.setStatusEmail(false);
         accounts.save(entity);
+        emailConfirmationService.sendConfirmationEmail(entity);
     }
-
 
     public String getAccount() {
         return "Account";

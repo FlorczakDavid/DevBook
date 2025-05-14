@@ -51,7 +51,7 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException(Exception exception, WebRequest request) {
         CustomErrors customErrors = new CustomErrors();
-        customErrors.addGlobalError("Impossible d'intégrés le flux, Veillez contact l'administrateur: ");
+        customErrors.addGlobalError( exception.getMessage());
         return handleExceptionInternal(exception, customErrors, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 }
