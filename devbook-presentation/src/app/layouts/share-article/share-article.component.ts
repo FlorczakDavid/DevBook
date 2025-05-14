@@ -27,7 +27,8 @@ export class ShareArticleComponent {
       try {
         const response = await fetch('http://localhost:8080/article', {
           method: "POST",
-          headers : {"Content-type": "application/json", "Authorization": "Bearer:`token`"},
+          headers : {"Content-type": "application/json", 
+            "Authorization": `Bearer ${token}`},
           body: JSON.stringify({url: this.formGroup.value.url})
         })
         if(response.ok){
