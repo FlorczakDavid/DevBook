@@ -47,7 +47,7 @@ public class AccountAuthenticateService {
 		Account entity = accounts.findAllByUsernameIgnoreCase(inputsUsername)
 				.orElseThrow(()-> new BadCredentialsException(inputsUsername));
 		//verify if email is valid
-//		if(entity.isStatusEmail()) {
+		if(entity.isStatusEmail()) {
 			// verify the pair of username and password
 			boolean compared = encoder.matches(inputs.password(), entity.getPassword());
 			if(compared) {
@@ -68,9 +68,9 @@ public class AccountAuthenticateService {
 			}else {
 				throw new BadCredentialsException(inputsUsername);
 			}
-//		}else {//TODO : throw other exception
-//			throw new BadCredentialsException("Your email is not valid");
-//		}
+		}else {//TODO : throw other exception
+			throw new BadCredentialsException("Your email is not valid");
+		}
 	}
 
 	public AuthInfo verifyPin(String pin, String token) {

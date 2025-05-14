@@ -4,59 +4,100 @@ import co.simplon.devbookapi.dtos.AccountCreate;
 import co.simplon.devbookapi.dtos.AuthInfo;
 import co.simplon.devbookapi.dtos.Authentication;
 import co.simplon.devbookapi.dtos.ProfileUpdate;
+import co.simplon.devbookapi.dtos.EmailConfirmationInfo;
+import co.simplon.devbookapi.entities.Account;
+import co.simplon.devbookapi.entities.EmailConfirmation;
+import co.simplon.devbookapi.repositories.AccountRepository;
+import co.simplon.devbookapi.repositories.EmailConfirmationRepository;
+import co.simplon.devbookapi.services.EmailConfirmationService;
+import co.simplon.devbookapi.dtos.EmailConfirmationInfo;
+import co.simplon.devbookapi.entities.Account;
+import co.simplon.devbookapi.entities.EmailConfirmation;
+import co.simplon.devbookapi.repositories.AccountRepository;
+import co.simplon.devbookapi.repositories.EmailConfirmationRepository;
+import co.simplon.devbookapi.services.EmailConfirmationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import co.simplon.devbookapi.services.AccountAuthenticateService;
 import co.simplon.devbookapi.services.AccountService;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
+
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
     public final AccountService service;
     public final AccountAuthenticateService authService;
+  public final EmailConfirmationService emailConfirmationService;
 
-    public AccountController(AccountService service, AccountAuthenticateService authService) {
+
+    public AccountController(AccountService service,
+                             AccountAuthenticateService authService,
+                             EmailConfirmationRepository emailConfirmationRepository,
+                             EmailConfirmationService emailConfirmationService,
+                             AccountRepository accountRepository, EmailConfirmationService emailConfirmationService1) {
+
         this.service = service;
         this.authService = authService;
+        this.emailConfirmationService = emailConfirmationService1;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     void create(@RequestBody @Valid AccountCreate inputs) {
         service.create(inputs);
-    }
 
+    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     String getAccount() {
         return service.getAccount();
     }
-    
+
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.ACCEPTED)
     void authentificate(@RequestBody Authentication inputs) {
         authService.authenticate(inputs);
     }
-    
+
     @PostMapping("/doubleAuth/{token}")
     @ResponseStatus(HttpStatus.CREATED)
     AuthInfo verifyPin(@PathVariable("token") String token, @RequestBody String pin) {
-    	return authService.verifyPin(pin, token);
+        return authService.verifyPin(pin, token);
     }
-    
+
     @GetMapping("/profile/{token}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     Object getProfile(@PathVariable("token") String token) {
-    	return service.getProfile(token);
+        return service.getProfile(token);
     }
-    
+
     @PatchMapping("/updateProfile")
     @ResponseStatus(HttpStatus.ACCEPTED)
     void updateProfile(@RequestBody ProfileUpdate inputs) {
-    	service.updateProfile(inputs);
+        service.updateProfile(inputs);
     }
-    
+
+
+    @GetMapping("/confirm/{uuidToken}")
+    public ResponseEntity<String> confirmEmail(@PathVariable String uuidToken) {
+        ResponseEntity<String> UNAUTHORIZED = emailConfirmationService.getStringResponseEntity(uuidToken);
+        if (UNAUTHORIZED != null) return UNAUTHORIZED;
+
+        return ResponseEntity.ok("eMail ok");
+    }
+
+
+
+
 }
