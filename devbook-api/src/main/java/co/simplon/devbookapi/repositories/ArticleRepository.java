@@ -11,4 +11,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     boolean existsByUrl(String url);
     List<Article> findAllByCategoriesContaining(String category);
+
+    Article findByUrl(String url);
 }

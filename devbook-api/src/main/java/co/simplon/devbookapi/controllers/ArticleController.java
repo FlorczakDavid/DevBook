@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/article")
@@ -21,8 +22,9 @@ public class ArticleController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> postArticle(@Valid @RequestBody ArticleCreate input) throws IOException {
-        return articleService.postArticle(input);
+    public void postArticle(@Valid @RequestBody ArticleCreate input, Principal principal) throws IOException {
+        String username = principal.getName();
+        articleService.postArticle(input, username);
     }
 
 }

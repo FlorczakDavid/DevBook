@@ -26,4 +26,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 	@Modifying
 	@NativeQuery("UPDATE t_accounts as a SET notif_article = ?2, notif_rss = ?3 where a.username = ?1")
 	void updateProfile(String username, boolean notifArticle, boolean notifRss);
+
+	Account findByUsername(String username);
 }

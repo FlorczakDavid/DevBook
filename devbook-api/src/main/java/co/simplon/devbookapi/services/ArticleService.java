@@ -1,9 +1,14 @@
 package co.simplon.devbookapi.services;
 
 import co.simplon.devbookapi.dtos.ArticleCreate;
+import co.simplon.devbookapi.dtos.ShareArticleCreate;
 import co.simplon.devbookapi.dtos.ValidArticle;
+import co.simplon.devbookapi.entities.Account;
 import co.simplon.devbookapi.entities.Article;
+import co.simplon.devbookapi.entities.ShareArticle;
+import co.simplon.devbookapi.repositories.AccountRepository;
 import co.simplon.devbookapi.repositories.ArticleRepository;
+import co.simplon.devbookapi.repositories.ShareArticleRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -11,24 +16,43 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Service
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final ShareArticleRepository shareArticleRepository;
+    private final AccountRepository accountRepository;
 
-    public ArticleService(ArticleRepository articleRepository) {
+    public ArticleService(ArticleRepository articleRepository, ShareArticleRepository shareArticleRepository, AccountRepository accountRepository) {
         this.articleRepository = articleRepository;
+        this.shareArticleRepository = shareArticleRepository;
+        this.accountRepository = accountRepository;
     }
 
-    public ResponseEntity<Object> postArticle(ArticleCreate input) throws IOException {
+    public void postArticle(ArticleCreate input, String username) throws IOException {
         try{
             ValidArticle validatedArticle = validArticle(input);
             createArticle(validatedArticle);
+            shareArticle(input, username);
         }catch(IOException e){
             System.out.println("Cannot access to the article");
         }
-        return null;
+    }
+
+    private void shareArticle(ArticleCreate input, String username) {
+        Account account = accountRepository.findByUsername(username);
+        Article article = articleRepository.findByUrl(input.url());
+        ShareArticleCreate shareArticleCreate = new ShareArticleCreate(
+                account,
+                article
+        );
+        ShareArticle shareArticle = new ShareArticle();
+        shareArticle.setAccount(account);
+        shareArticle.setArticle(article);
+        shareArticle.setPublishedDate(LocalDateTime.now());
+        shareArticleRepository.save(shareArticle);
     }
 
     private ValidArticle validArticle(ArticleCreate input) throws IOException {
@@ -39,19 +63,17 @@ public class ArticleService {
         String contentType = type.attr("content");
         Elements image = doc.select("meta[property='og:image']");
         String contentImage = image.attr("content");
-        Elements url = doc.select("meta[property='og:url']");
-        String contentUrl = url.attr("content");
         Elements description = doc.select("meta[property='og:description']");
         String contentDescription = description.attr("content");
         Elements author = doc.select(String.format("meta[property='%s1:authors']", contentType));
         String contentAuthor = author.attr("content");
 
-        return checkArticle(contentUrl, contentTitle, contentImage, contentDescription, contentAuthor);
+        return checkArticle(input.url(), contentTitle, contentImage, contentDescription, contentAuthor);
     }
 
-    private static ValidArticle checkArticle(String contentUrl, String contentTitle, String contentImage, String contentDescription, String contentAuthor) {
+    private static ValidArticle checkArticle(String url, String contentTitle, String contentImage, String contentDescription, String contentAuthor) {
         return new ValidArticle(
-                contentUrl,
+                url,
                 contentTitle,
                 contentImage,
                 contentDescription,
