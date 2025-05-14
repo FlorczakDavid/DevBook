@@ -95,6 +95,7 @@ public class Config {
 
     	return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
 				.authorizeHttpRequests((req) -> req
+						.requestMatchers(HttpMethod.GET, "/accounts/confirm/**").anonymous()
 						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**", "/article").anonymous()
 						.requestMatchers(HttpMethod.POST, "/sse", "/notify").hasAnyRole("MEMBER", "INTEGRATOR")
 						.requestMatchers(HttpMethod.POST, "/rss/import").hasRole("INTEGRATOR")
