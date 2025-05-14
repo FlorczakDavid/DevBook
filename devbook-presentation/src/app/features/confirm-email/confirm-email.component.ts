@@ -19,7 +19,10 @@ export class ConfirmEmailComponent implements OnInit {
     const token = this.route.snapshot.paramMap.get('token');
     if (token) {
       this.confirmService.confirm(token).subscribe({
-        next: (response) => (this.message = response || 'Champagne !'),
+        next: (response) => {
+          console.log('Réponse backend :', response);
+          this.message = response || 'Champagne !';
+        },
         error: (err) => (this.message = err.error || 'Erreur de confirmation'),
       });
     } else {

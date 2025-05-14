@@ -37,22 +37,18 @@ import java.time.LocalDateTime;
 public class AccountController {
     public final AccountService service;
     public final AccountAuthenticateService authService;
-    private final EmailConfirmationRepository emailConfirmationRepository;
-    private final AccountRepository accountRepository;
-    private final EmailConfirmationService emailConfirmationService;
+  public final EmailConfirmationService emailConfirmationService;
 
 
     public AccountController(AccountService service,
                              AccountAuthenticateService authService,
                              EmailConfirmationRepository emailConfirmationRepository,
                              EmailConfirmationService emailConfirmationService,
-                             AccountRepository accountRepository) {
+                             AccountRepository accountRepository, EmailConfirmationService emailConfirmationService1) {
 
         this.service = service;
         this.authService = authService;
-        this.emailConfirmationRepository = emailConfirmationRepository;
-        this.accountRepository = accountRepository;
-        this.emailConfirmationService = emailConfirmationService;
+        this.emailConfirmationService = emailConfirmationService1;
     }
 
     @PostMapping
@@ -95,20 +91,13 @@ public class AccountController {
 
     @GetMapping("/confirm/{uuidToken}")
     public ResponseEntity<String> confirmEmail(@PathVariable String uuidToken) {
-        EmailConfirmation emailConfirmation = emailConfirmationRepository.findByUuidToken(uuidToken)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Token perdu"));
-
-        if (emailConfirmation.getExpiration().isBefore(LocalDateTime.now())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token expiré");
-        }
-
-        Account account = emailConfirmation.getAccount();
-        account.setStatusEmail(true);
-        accountRepository.save(account);
-        emailConfirmationRepository.deleteByUuidToken(uuidToken);
+        ResponseEntity<String> UNAUTHORIZED = emailConfirmationService.getStringResponseEntity(uuidToken);
+        if (UNAUTHORIZED != null) return UNAUTHORIZED;
 
         return ResponseEntity.ok("eMail ok");
     }
+
+
 
 
 }
