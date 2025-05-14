@@ -17,6 +17,10 @@ import co.simplon.devbookapi.repositories.AccountRepository;
 import co.simplon.devbookapi.repositories.EmailConfirmationRepository;
 import co.simplon.devbookapi.services.EmailConfirmationService;
 import jakarta.validation.Valid;
+
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity;
@@ -88,6 +92,11 @@ public class AccountController {
         service.updateProfile(inputs);
     }
 
+    @GetMapping("/testRssAccounts")
+    List<String> getAccountsSubscribedToRss() {
+    	return service.getAccountUsernamesWithNotifRss();
+    }
+    
 
     @GetMapping("/confirm/{uuidToken}")
     public ResponseEntity<String> confirmEmail(@PathVariable String uuidToken) {
