@@ -51,10 +51,7 @@ public class Config {
 
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedMethods("POST", "GET", "PATCH", "PUT", "DELETE")
-						.allowedHeaders("*")
-						.allowedOrigins(origins);
+				registry.addMapping("/**").allowedMethods("POST", "GET", "PATCH", "PUT", "DELETE").allowedOrigins(origins);
 			}
 		};
 	}
@@ -87,6 +84,8 @@ public class Config {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+
     	JwtGrantedAuthoritiesConverter authConverter = new JwtGrantedAuthoritiesConverter();
         authConverter.setAuthoritiesClaimName("role");
         authConverter.setAuthorityPrefix("ROLE_");
@@ -96,14 +95,13 @@ public class Config {
 
     	return http.cors(Customizer.withDefaults()).csrf((csrf) -> csrf.disable())
 				.authorizeHttpRequests((req) -> req
-						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**").anonymous()
-						.requestMatchers(HttpMethod.POST, "/sse", "/notify", "/article/**").hasAnyRole("MEMBER", "INTEGRATOR")
+						.requestMatchers(HttpMethod.POST, "/accounts", "/accounts/authenticate","/accounts/doubleAuth/**", "/article").anonymous()
+						.requestMatchers(HttpMethod.POST, "/sse", "/notify").hasAnyRole("MEMBER", "INTEGRATOR")
 						.requestMatchers(HttpMethod.POST, "/rss/import").hasRole("INTEGRATOR")
                         .requestMatchers(HttpMethod.GET, "/sse/*", "/accounts/profile/**").hasRole("MEMBER")
                         .requestMatchers(HttpMethod.PATCH).hasRole("MEMBER"))
                 .authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
-				.oauth2ResourceServer((srv) -> srv.jwt(jwt -> jwt
-		                  .jwtAuthenticationConverter(jwtAuthConverter)))
+				.oauth2ResourceServer(srv -> srv.jwt((Customizer.withDefaults())))
 				.build();
 
     }
