@@ -21,7 +21,7 @@ export class ConfirmEmailComponent implements OnInit {
       this.confirmService.confirm(token).subscribe({
         next: (response) => {
           console.log('Réponse backend :', response);
-          this.message = response || 'Champagne !';
+          this.message = response;
         },
         error: (err) => (this.message = err.error || 'Erreur de confirmation'),
       });

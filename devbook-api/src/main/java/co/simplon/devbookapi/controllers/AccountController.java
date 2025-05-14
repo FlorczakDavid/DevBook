@@ -94,7 +94,7 @@ public class AccountController {
         ResponseEntity<String> UNAUTHORIZED = emailConfirmationService.getStringResponseEntity(uuidToken);
         if (UNAUTHORIZED != null) return UNAUTHORIZED;
 
-        return ResponseEntity.ok("eMail ok");
+        return ResponseEntity.ok("Champagne !");
     }
 
 
