@@ -19,6 +19,7 @@ import {ShareArticleIconComponent} from '../../features/header/share-article-ico
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = !!localStorage.getItem('token');
+  isIntegrator: boolean = localStorage.getItem('role') === 'INTEGRATOR';
   // showNotification: boolean = localStorage.getItem('role') == 'MEMBER';
   showNotification: boolean = true; //pour tester
   // displayedShareArticle: boolean = false;
@@ -33,6 +34,7 @@ export class HeaderComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         // Met à jour l'état de connexion
         this.isLoggedIn = !!localStorage.getItem('token');
+        this.isIntegrator = localStorage.getItem('role') === 'INTEGRATOR';
       }
     });
   }
@@ -40,6 +42,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.isLoggedIn = false;
+    this.isIntegrator = false;
     this.router.navigateByUrl('/auth');
   }
 }

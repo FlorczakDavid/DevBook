@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { Profile } from '../../core/models/Profile';
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule, JsonPipe],
+  imports: [FormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
