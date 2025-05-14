@@ -21,16 +21,19 @@ export class ShareArticleComponent {
 
   async onSubmit() {
     if (this.formGroup.valid) {
-      console.log('form', this.formGroup.value);
+      console.log('url', this.formGroup.value.url);
       const token = localStorage.getItem('token');
+      console.log('token', token)
 
       try {
         const response = await fetch('http://localhost:8080/article', {
           method: "POST",
-          headers : {"Content-type": "application/json", 
-            "Authorization": `Bearer ${token}`},
+          headers : {
+            'Content-type': 'application/json', 
+            'Authorization':`Bearer ${token}`},
           body: JSON.stringify({url: this.formGroup.value.url})
-        })
+        });
+        console.log("response", response)
         if(response.ok){
           alert('url correctly sent')
         } else if (!response.ok){
@@ -40,7 +43,7 @@ export class ShareArticleComponent {
           }
         }
       } catch(err:any) {
-        alert('an enexpected error has occured')
+        alert( err.message)
       } 
     }
   }

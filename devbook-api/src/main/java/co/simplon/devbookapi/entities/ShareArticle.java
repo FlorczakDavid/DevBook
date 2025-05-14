@@ -2,6 +2,7 @@ package co.simplon.devbookapi.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @Entity
@@ -21,8 +22,8 @@ public class ShareArticle {
     @JoinColumn(name = "article_id")
     Article article;
 
-    @Column(name = "published_date")
-    ZonedDateTime publishedDate;
+    @Column(name = "published_at")
+    LocalDateTime publishedDate;
 
     public ShareArticle() {
     }
@@ -51,11 +52,11 @@ public class ShareArticle {
         this.article = article;
     }
 
-    public ZonedDateTime getPublishedDate() {
+    public LocalDateTime getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(ZonedDateTime publishedDate) {
+    public void setPublishedDate(LocalDateTime publishedDate) {
         this.publishedDate = publishedDate;
     }
 
