@@ -8,7 +8,7 @@ import {accountGuard} from './core/guards/account.guard';
 import {roleGuard} from './core/guards/role.guard';
 export const routes: Routes = [
   { path: 'auth-pin/:token', component: AuthPinComponent },
-  { path: '', component: LandingPageComponent },
+  { path: '', component: LandingPageComponent},
   {
     path: 'rss-providers',
     loadComponent: () => import('./features/rss-providers/rss-providers.component')
@@ -27,5 +27,11 @@ export const routes: Routes = [
     .then(mod=>mod.ShareArticleComponent),
     canActivate: [accountGuard]
   },
+  {
+    path: 'auth',
+    loadComponent: () => import('./layouts/landing-page/pages/anonymous-home/anonymous-home.component')
+      .then(mod=>mod.AnonymousHomeComponent),
+  },
+
   { path: '**', component: NotFoundComponent }
 ];
