@@ -1,3 +1,16 @@
+input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
 form div {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+}
+
+form div label {
+  white-space: nowrap;
+  margin: 0;
 }
