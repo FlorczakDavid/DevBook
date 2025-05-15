@@ -16,9 +16,10 @@ import java.io.IOException;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-
-    public ArticleService(ArticleRepository articleRepository) {
+    private final NotificationService notificationService;
+    public ArticleService(ArticleRepository articleRepository, NotificationService notificationService) {
         this.articleRepository = articleRepository;
+        this.notificationService = notificationService;
     }
 
     public ResponseEntity<Object> postArticle(ArticleCreate input) throws IOException {
@@ -67,5 +68,6 @@ public class ArticleService {
         article.setDescription(articleValidated.description());
         article.setAuthors(articleValidated.authors());
         articleRepository.save(article);
+        notificationService.sendNotif("ARTICLE");
     }
 }
