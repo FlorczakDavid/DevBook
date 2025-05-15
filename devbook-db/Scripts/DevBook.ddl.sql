@@ -36,7 +36,7 @@ CREATE TABLE t_articles (
 	url varchar(255) NOT NULL ,
 	title varchar(255) NOT NULL ,
 	image_path varchar(255),
-	description varchar(255),
+    description TEXT NULL,
 	authors varchar(255),
     published_date timestamptz(6) NULL,
     provider_id int NULL,
@@ -47,7 +47,7 @@ CREATE TABLE t_articles (
 
 CREATE TABLE t_rss_providers (
     id int GENERATED ALWAYS AS IDENTITY,
-    description varchar(255) NULL,
+    description TEXT NULL,
     image_url varchar(255) NULL,
     last_update timestamptz(6) NULL,
     link varchar(255) NULL,
@@ -69,5 +69,5 @@ CREATE TABLE t_share_articles(
 CREATE TABLE article_categories (
     article_id int NOT NULL,
     categories varchar(255) NULL,
-    CONSTRAINT fk_article_categories_article_id FOREIGN KEY (article_id) REFERENCES t_articles(id);
+    CONSTRAINT fk_article_categories_article_id FOREIGN KEY (article_id) REFERENCES t_articles(id)
 );
