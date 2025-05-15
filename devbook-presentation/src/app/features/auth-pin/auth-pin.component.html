@@ -2,12 +2,12 @@
   <h1>Entrez le code PIN reçu par le mail</h1>
   <div>
       <form [formGroup]="pinForm" (ngSubmit)="onSubmit()">
-          <div class="pinInputs">
-              <input type="text" formControlName="pin1">
-              <input type="text" formControlName="pin2">
-              <input type="text" formControlName="pin3">
-              <input type="text" formControlName="pin4">
-          </div>
+        <div class="pinInputs">
+          <input type="text" formControlName="pin1" (paste)="onPaste($event)" (input)="moveToNext($event, 'pin2')" (keydown)="handleBackspace($event, null)" (keypress)="validateInput($event)" pattern="[0-9]*" maxlength="1">
+          <input type="text" formControlName="pin2" (input)="moveToNext($event, 'pin3')" (keydown)="handleBackspace($event, 'pin1')" (keypress)="validateInput($event)" pattern="[0-9]*" maxlength="1">
+          <input type="text" formControlName="pin3" (input)="moveToNext($event, 'pin4')" (keydown)="handleBackspace($event, 'pin2')" (keypress)="validateInput($event)" pattern="[0-9]*" maxlength="1">
+          <input type="text" formControlName="pin4" (input)="moveToNext($event, null)" (keydown)="handleBackspace($event, 'pin3')" (keypress)="validateInput($event)" pattern="[0-9]*" maxlength="1">
+        </div>
           <button>Envoyer</button>
       </form>
   </div>

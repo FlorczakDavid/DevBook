@@ -34,25 +34,26 @@ CREATE TABLE t_2fa (
 CREATE TABLE t_articles (
 	id int GENERATED ALWAYS AS IDENTITY,
 	url varchar(255) NOT NULL ,
-	title varchar(100) NOT NULL ,
+	title varchar(255) NOT NULL ,
 	image_path varchar(255),
-	description varchar(255),
-	authors varchar(100),
+    description TEXT NULL,
+	authors varchar(255),
     published_date timestamptz(6) NULL,
     provider_id int NULL,
 	CONSTRAINT pk_t_articles PRIMARY KEY (id),
-	CONSTRAINT uq_t_articles_title UNIQUE (title),
+	CONSTRAINT uq_t_articles_url UNIQUE (url),
     CONSTRAINT fk_t_articles_provider_id FOREIGN KEY (provider_id) REFERENCES t_rss_providers(id)
 );
 
 CREATE TABLE t_rss_providers (
     id int GENERATED ALWAYS AS IDENTITY,
-    description varchar(255) NULL,
+    description TEXT NULL,
     image_url varchar(255) NULL,
     last_update timestamptz(6) NULL,
     link varchar(255) NULL,
     title varchar(255) NULL,
     url varchar(255) NULL,
+    CONSTRAINT uq_t_rss_providers_url UNIQUE (url),
     CONSTRAINT pk_t_rss_providers PRIMARY KEY (id)
 );
 
@@ -62,5 +63,11 @@ CREATE TABLE t_share_articles(
     article_id int NOT NULL,
     published_at timestamp WITHOUT time ZONE NOT NULL,
     CONSTRAINT pk_t_share_articles PRIMARY KEY (id),
-    CONSTRAINT uk_t_share_articles_account_id_article_id UNIQUE (account_id, article_id)
+    CONSTRAINT uq_t_share_articles_account_id_article_id UNIQUE (account_id, article_id)
+);
+
+CREATE TABLE article_categories (
+    article_id int NOT NULL,
+    categories varchar(255) NULL,
+    CONSTRAINT fk_article_categories_article_id FOREIGN KEY (article_id) REFERENCES t_articles(id)
 );

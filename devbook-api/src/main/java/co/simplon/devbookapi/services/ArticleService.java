@@ -38,7 +38,7 @@ public class ArticleService {
             ValidArticle validatedArticle = validArticle(input);
             createArticle(validatedArticle);
             shareArticle(input, username);
-            notificationService.sendNotif("RSS");
+            notificationService.sendNotif("ARTICLE");
         }catch(IOException e){
             System.out.println("Cannot access to the article");
         }
@@ -92,5 +92,6 @@ public class ArticleService {
         article.setDescription(articleValidated.description());
         article.setAuthors(articleValidated.authors());
         articleRepository.save(article);
+        notificationService.sendNotif("ARTICLE");
     }
 }
