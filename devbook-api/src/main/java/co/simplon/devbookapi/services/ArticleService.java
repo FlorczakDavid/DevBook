@@ -24,11 +24,13 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final ShareArticleRepository shareArticleRepository;
     private final AccountRepository accountRepository;
+    private final NotificationService notificationService;
 
-    public ArticleService(ArticleRepository articleRepository, ShareArticleRepository shareArticleRepository, AccountRepository accountRepository) {
+    public ArticleService(ArticleRepository articleRepository, ShareArticleRepository shareArticleRepository, AccountRepository accountRepository, NotificationService notificationService) {
         this.articleRepository = articleRepository;
         this.shareArticleRepository = shareArticleRepository;
         this.accountRepository = accountRepository;
+        this.notificationService = notificationService;
     }
 
     public void postArticle(ArticleCreate input, String username) throws IOException {
@@ -36,6 +38,7 @@ public class ArticleService {
             ValidArticle validatedArticle = validArticle(input);
             createArticle(validatedArticle);
             shareArticle(input, username);
+            notificationService.sendNotif("RSS");
         }catch(IOException e){
             System.out.println("Cannot access to the article");
         }
