@@ -23,9 +23,15 @@ public class NotificationController {
     	return notificationService.subscribe();
     }
     
-    @PostMapping("/notify")
-    public ResponseEntity<Void> notifyClients() {
-    	notificationService.sendNotif();
+    @PostMapping("/notify/rss")
+    public ResponseEntity<Void> notifyClientsRss() {
+    	notificationService.sendNotif("RSS");
+        return ResponseEntity.ok().build();
+    }
+    
+    @PostMapping("/notify/article")
+    public ResponseEntity<Void> notifyClientsArticle() {
+    	notificationService.sendNotif("ARTICLE");
         return ResponseEntity.ok().build();
     }
 }

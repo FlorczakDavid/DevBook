@@ -94,6 +94,7 @@ public class Config {
 						.requestMatchers(HttpMethod.POST, "/sse", "/notify").hasAnyRole("MEMBER", "INTEGRATOR")
 						.requestMatchers(HttpMethod.POST, "/rss/import").hasRole("INTEGRATOR")
                         .requestMatchers(HttpMethod.GET, "/sse/*", "/accounts/profile/**").hasRole("MEMBER")
+                        .requestMatchers(HttpMethod.GET, "/accounts/testRssAccounts").anonymous()
                         .requestMatchers(HttpMethod.PATCH).hasRole("MEMBER"))
                 .authorizeHttpRequests((reqs) -> reqs.anyRequest().authenticated())
 				.oauth2ResourceServer(srv -> srv.jwt(withDefaults()))

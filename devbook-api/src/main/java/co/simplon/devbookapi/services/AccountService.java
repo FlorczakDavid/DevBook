@@ -4,8 +4,7 @@ import co.simplon.devbookapi.dtos.AccountCreate;
 import co.simplon.devbookapi.dtos.ProfileDetails;
 import co.simplon.devbookapi.dtos.ProfileUpdate;
 import co.simplon.devbookapi.repositories.RoleRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
+import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,5 +58,12 @@ public class AccountService {
 	public void updateProfile(ProfileUpdate inputs) {
 		String username = jwtProvider.getSub(inputs.token());
 		accounts.updateProfile(username, inputs.notifArticle(), inputs.notifRss());
+	}
+	public List<String> getAccountUsernamesWithNotifArticle() {
+		return accounts.getAccountUsernamesWithNotifArticle();
+	}
+
+	public List<String> getAccountUsernamesWithNotifRss() {
+		return accounts.getAccountUsernamesWithNotifRss();
 	}
 }

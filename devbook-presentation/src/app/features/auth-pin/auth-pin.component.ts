@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthInfo } from '../../core/models/authInfo';
+import { NotificationService } from '../../core/notification.service';
 
 @Component({
   selector: 'app-auth-pin',
@@ -11,7 +12,6 @@ import { AuthInfo } from '../../core/models/authInfo';
   styleUrl: './auth-pin.component.css'
 })
 export class AuthPinComponent {
-
   pinForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
@@ -85,6 +85,9 @@ export class AuthPinComponent {
               localStorage.setItem('role', response.role);
               this.router.navigateByUrl('');
               console.log('La demande est enVoyé', response);
+              if(response.role === 'MEMBER' ) {
+                NotificationService.startListening();
+              }
             },
             error: (error) => {
               console.error('Erreur d envoie', error);

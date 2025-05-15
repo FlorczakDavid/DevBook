@@ -18,8 +18,8 @@ public class NotificationService {
 		return notifBean.subscribe();
 	}
 
-	public void sendNotif() {
-		notifBean.sendNotifications();
+	public void sendNotif(String notifType) {
+		notifBean.sendNotifications(notifType);
 	}
 	
 }

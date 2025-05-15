@@ -42,7 +42,7 @@ CREATE TABLE t_articles (
     provider_id int NULL,
 	CONSTRAINT pk_t_articles PRIMARY KEY (id),
 	CONSTRAINT uq_t_articles_url UNIQUE (url),
-    CONSTRAINT fk_t_articles_provider_id FOREIGN KEY (provider_id) REFERENCES t_rss_providers(id);
+    CONSTRAINT fk_t_articles_provider_id FOREIGN KEY (provider_id) REFERENCES t_rss_providers(id)
 );
 
 CREATE TABLE t_rss_providers (
