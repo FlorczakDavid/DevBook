@@ -8,12 +8,25 @@ import java.time.ZonedDateTime;
 public class RssProvider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "link")
     private String link;
+
+    @Column(name = "url")
     private String url;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
+    @Column(name = "image_url")
     private String imageUrl;
+
+    @Column(name = "last_update")
     private ZonedDateTime lastUpdate;
 
     public Long getId() {

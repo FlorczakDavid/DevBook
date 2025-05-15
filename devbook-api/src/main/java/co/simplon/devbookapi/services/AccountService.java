@@ -6,8 +6,6 @@ import co.simplon.devbookapi.dtos.ProfileUpdate;
 import co.simplon.devbookapi.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,22 +22,14 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final RoleRepository roles;
-    private final JavaMailSender mailSender;
     private final EmailConfirmationService emailConfirmationService;
 
-    @Value("${co.simplon.devbook.email.from}")
-    private String emailFrom;
-
-    @Value("${co.simplon.devbook.urlEmailConfirmation}")
-    private String urlEmailConfirmation;
-
     public AccountService(AccountRepository accounts, PasswordEncoder passwordEncoder, JwtProvider jwtProvider,
-                          RoleRepository roles, JavaMailSender mailSender, EmailConfirmationService emailConfirmationService) {
+                          RoleRepository roles, EmailConfirmationService emailConfirmationService) {
         this.accounts = accounts;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
         this.jwtProvider = jwtProvider;
-        this.mailSender = mailSender;
         this.emailConfirmationService = emailConfirmationService;
     }
 
