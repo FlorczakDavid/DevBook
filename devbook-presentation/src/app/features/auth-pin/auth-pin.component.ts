@@ -37,7 +37,9 @@ export class AuthPinComponent {
               localStorage.setItem('role', response.role);
               this.router.navigateByUrl('');
               console.log('La demande est enVoyé', response);
-              NotificationService.startListening();
+              if(response.role === 'MEMBER' ) {
+                NotificationService.startListening();
+              }
             },
             error: (error) => {
               console.error('Erreur d envoie', error);
